@@ -68,5 +68,5 @@ jobs:
       - name: Generate app key
         run: php artisan key:generate
 
-      - name: Execute tests
+      - name: Execute Analyze
         run: ./vendor/bin/phpstan analyze -c ./phpstan.neon.dist -n --no-progress --no-ansi
