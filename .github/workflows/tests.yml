@@ -22,7 +22,7 @@ jobs:
     name: PHP ${{ matrix.php }}
     env:
       extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite
-      key: cache-v1
+      key: php_${{ matrix.php }}_cache_v1
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -56,8 +56,8 @@ jobs:
         uses: actions/cache@v3
         with:
           path: ${{ steps.composer-cache.outputs.dir }}
-          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
-          restore-keys: ${{ runner.os }}-composer-
+          key: ${{ env.key }}-${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+          restore-keys: ${{ env.key }}-${{ runner.os }}-composer-
 
       - name: Install Composer dependencies
         run: composer install --prefer-dist --no-interaction --no-progress
