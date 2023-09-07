@@ -9,9 +9,18 @@ class AuthException extends Exception
     private const ERROR_MESSAGE_TEMPLE = '[%s]';
     private const ERROR_MESSAGE_TEMPLE_WITH_EXCEPTION = '[%s] - (%s)';
 
-    public function __construct(protected $error, protected $code = 400, array $payload = null)
+    /**
+     * @param string $error
+     * @param int $code
+     * @param array<string, mixed>|null $payload
+     */
+    public function __construct(protected string $error, protected $code = 400, array $payload = null)
     {
         $this->error = 'auth.error.' . $this->error;
+
+        /**
+         * @var \Throwable|null $e
+         */
         $e = $payload['e'] ?? null;
 
         parent::__construct(

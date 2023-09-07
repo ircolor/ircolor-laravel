@@ -28,6 +28,9 @@ abstract class AuthProvider implements AuthProviderInterface
         if (self::ID === null)
             throw new \InvalidArgumentException('TYPE const is null');
 
+        /**
+         * @phpstan-ignore-next-line
+         */
         return self::ID;
     }
 
@@ -36,6 +39,9 @@ abstract class AuthProvider implements AuthProviderInterface
         if (self::TYPE === null)
             throw new \InvalidArgumentException('TYPE const is null');
 
+        /**
+         * @phpstan-ignore-next-line
+         */
         return self::TYPE;
     }
 
@@ -44,6 +50,9 @@ abstract class AuthProvider implements AuthProviderInterface
         if (self::SIGN_IN_METHODS === null)
             throw new \InvalidArgumentException('TYPE const is null');
 
+        /**
+         * @phpstan-ignore-next-line
+         */
         return self::SIGN_IN_METHODS;
     }
 }

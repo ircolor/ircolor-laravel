@@ -17,9 +17,13 @@ abstract class AuthCredential implements AuthCredentialInterface
     ];
 
     protected AuthProviderSignInMethod $signInMethod;
+
+    /**
+     * @var array<string, string>
+     */
     protected array $payload;
 
-    public static function createFromRequest(Request $request)
+    public static function createFromRequest(Request $request): self
     {
         $class = new \ReflectionClass(self::CREDENTIAL_MAPPER[$request->input('provider_id')]);
 

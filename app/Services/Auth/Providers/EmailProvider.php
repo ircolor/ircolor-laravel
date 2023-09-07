@@ -27,6 +27,11 @@ class EmailProvider extends AuthProvider implements EmailProviderInterface
         //
     }
 
+    /**
+     * @param EmailCredentialInterface $credential
+     * @return User
+     * @throws AuthException
+     */
     public function authenticate(EmailCredentialInterface|AuthCredentialInterface $credential): User
     {
         $user = $this->userRepository->getUserByEmail($credential->getEmail());
@@ -46,5 +51,6 @@ class EmailProvider extends AuthProvider implements EmailProviderInterface
     public function createUserWithEmailAndPassword(string $email, string $password): User
     {
         // TODO: Implement createUserWithEmailAndPassword() method.
+        return new User;
     }
 }
