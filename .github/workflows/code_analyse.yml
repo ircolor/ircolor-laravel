@@ -1,27 +1,28 @@
-name: Setup
+name: Code Analyse
 
 on:
-  workflow_call:
-    inputs:
-      php-version:
-        description: 'PHP version'
-        type: string
-        required: true
-      extensions:
-        description: 'PHP extensions'
-        type: string
-        required: true
+  push:
+    branches:
+      - dev
+      - main
+  pull_request:
 
 permissions:
   contents: read
 
 jobs:
-  setup:
+  tests:
     runs-on: ubuntu-latest
 
-    env:
-      key: php_${{ inputs.php-version }}_cache_v1
+    strategy:
+      fail-fast: true
+      matrix:
+        php: [ 8.1, 8.2 ]
 
+    name: PHP ${{ matrix.php }}
+    env:
+      extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite
+      key: php_${{ matrix.php }}_cache_v1
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -30,8 +31,8 @@ jobs:
         id: ext_cache
         uses: shivammathur/cache-extensions@v1
         with:
-          php-version: ${{ inputs.php-version }}
-          extensions: ${{ inputs.extensions }}
+          php-version: ${{ matrix.php }}
+          extensions: ${{ env.extensions }}
           key: ${{ env.key }}
 
       - name: Cache extensions
@@ -44,15 +45,15 @@ jobs:
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: ${{ inputs.php-version }}
-          extensions: ${{ inputs.extensions }}
+          php-version: ${{ matrix.php-versions }}
+          extensions: ${{ env.extensions }}
 
       - name: Get composer cache directory
         id: composer-cache
-        run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_ENV
+        run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
 
       - name: Cache dependencies
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: ${{ steps.composer-cache.outputs.dir }}
           key: ${{ env.key }}-${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
@@ -66,3 +67,6 @@ jobs:
 
       - name: Generate app key
         run: php artisan key:generate
+
+      - name: Execute tests
+        run: ./vendor/bin/phpstan analyze -c ./phpstan.neon.dist -n --no-progress --no-ansi
