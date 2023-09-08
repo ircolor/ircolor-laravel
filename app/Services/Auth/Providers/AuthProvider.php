@@ -2,9 +2,16 @@
 
 namespace App\Services\Auth\Providers;
 
+use App\Models\User;
+use App\Providers\AuthServiceProvider;
+use App\Repositories\Auth\Contracts\UserRepositoryInterface;
+use App\Services\Auth\Contracts\AuthCredentialInterface;
 use App\Services\Auth\Contracts\AuthProviderInterface;
+use App\Services\Auth\Contracts\AuthSignInMethodInterface;
+use App\Services\Auth\Contracts\Exceptions\AuthException;
 use App\Services\Auth\Enums\AuthProviderSignInMethod;
 use App\Services\Auth\Enums\AuthProviderType;
+use Illuminate\Container\Container;
 
 abstract class AuthProvider implements AuthProviderInterface
 {
@@ -21,7 +28,23 @@ abstract class AuthProvider implements AuthProviderInterface
     /**
      * @type AuthProviderSignInMethod[]|null
      */
-    public const SIGN_IN_METHODS = null;
+    public const SUPPORTED_SIGN_IN_METHODS = null;
+
+    /**
+     * @type array<string, class-string<AuthSignInMethodInterface>>
+     */
+    protected const SIGN_IN_METHODS = [];
+
+    public function __construct(protected UserRepositoryInterface $userRepository)
+    {
+        //
+    }
+
+    public static function createFromProviderId(string $id): AuthProviderInterface
+    {
+        return Container::getInstance()
+            ->make(sprintf(AuthServiceProvider::CONTAINER_ALIAS_AUTH_PROVIDER_TEMPLATE, $id));
+    }
 
     public function getProviderId(): string
     {
@@ -47,12 +70,30 @@ abstract class AuthProvider implements AuthProviderInterface
 
     public function getProviderSignInMethods(): array
     {
-        if (self::SIGN_IN_METHODS === null)
+        if (self::SUPPORTED_SIGN_IN_METHODS === null)
             throw new \InvalidArgumentException('TYPE const is null');
 
         /**
          * @phpstan-ignore-next-line
          */
-        return self::SIGN_IN_METHODS;
+        return self::SUPPORTED_SIGN_IN_METHODS;
+    }
+
+    public function authenticate(AuthCredentialInterface $credential): User
+    {
+        if (empty($signInMethodClass = static::SIGN_IN_METHODS[$signInMethodEnumValue = $credential->getSignInMethod()->value] ?? null)) {
+            throw new \InvalidArgumentException(sprintf('sign in method %s not defined', $signInMethodEnumValue));
+        }
+
+        if (empty($user = $this->userRepository->getUserByIdentifier($credential->getIdentifier()))) {
+            throw new AuthException('user_not_found');
+        }
+
+        /**
+         * @var AuthSignInMethodInterface $signInMethod
+         */
+        $signInMethod = (new \ReflectionClass($signInMethodClass))->newInstance();
+
+        return $signInMethod->__invoke($user, $credential);
     }
 }

@@ -2,29 +2,34 @@
 
 namespace App\Services\Auth\Credentials;
 
+use App\Services\Auth\Contracts\AuthIdentifierInterface;
 use App\Services\Auth\Contracts\Credentials\EmailCredentialInterface;
+use App\Services\Auth\Enums\AuthIdentifierType;
 use App\Services\Auth\Enums\AuthProviderSignInMethod;
 
 class EmailCredential extends AuthCredential implements EmailCredentialInterface
 {
-    protected string $email;
     protected ?string $password;
 
-    public function __construct(AuthProviderSignInMethod $signInMethod, array $payload)
+    public function __construct(protected AuthIdentifierInterface $identifier, protected AuthProviderSignInMethod $signInMethod, array $payload)
     {
-        $this->signInMethod = $signInMethod;
-
-        $this->email = $payload['email'];
-        $this->password = $payload['password'] ?? null;
+        parent::__construct($this->identifier, $this->signInMethod, $payload);
     }
 
     public function getEmail(): string
     {
-        return $this->email;
+        return $this->identifier->getIdentifierValue();
     }
 
     public function getPassword(): ?string
     {
         return $this->password;
+    }
+
+    public function getSupportedIdentifiersTypes(): array
+    {
+        return [
+            AuthIdentifierType::EMAIL
+        ];
     }
 }
