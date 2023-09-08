@@ -92,7 +92,7 @@ abstract class AuthProvider implements AuthProviderInterface
         /**
          * @var AuthSignInMethodInterface $signInMethod
          */
-        $signInMethod = (new \ReflectionClass($signInMethodClass))->newInstance();
+        $signInMethod = Container::getInstance()->make($signInMethodClass);
 
         return $signInMethod->__invoke($user, $credential);
     }

@@ -3,14 +3,18 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Services\Auth\Contracts\MultiProviderUserInterface;
+use App\Services\Auth\Traits\MultiAuthProvider;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
-class User extends Authenticatable
+class User extends Authenticatable implements MultiProviderUserInterface
 {
     use HasApiTokens, HasFactory, Notifiable;
+    use MultiAuthProvider;
 
     /**
      * The attributes that are mass assignable.
@@ -42,4 +46,12 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    /**
+     * @return HasOne<Account>
+     */
+    public function account(): HasOne
+    {
+        return $this->hasOne(Account::class, 'user_id');
+    }
 }
