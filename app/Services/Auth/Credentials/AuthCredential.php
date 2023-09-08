@@ -18,22 +18,15 @@ abstract class AuthCredential implements AuthCredentialInterface
         EmailProvider::ID => EmailCredential::class
     ];
 
-    protected AuthIdentifierInterface $identifier;
-
-    protected AuthProviderSignInMethod $signInMethod;
-
     /**
      * @param AuthIdentifierInterface $identifier
      * @param AuthProviderSignInMethod $signInMethod
      * @param array<string, string> $payload
      */
-    public function __construct(AuthIdentifierInterface $identifier, AuthProviderSignInMethod $signInMethod, array $payload)
+    public function __construct(protected AuthIdentifierInterface $identifier, protected AuthProviderSignInMethod $signInMethod, array $payload)
     {
         $this->throwIfIdentifierTypeNotSupported();
         $this->fillAttributes($payload);
-
-        $this->identifier = $identifier;
-        $this->signInMethod = $signInMethod;
     }
 
     public static function createFromRequest(Request $request): self
