@@ -7,7 +7,7 @@ use App\Repositories\Auth\UserRepository;
 use App\Services\Auth\Contracts\AuthProviderInterface;
 use App\Services\Auth\Contracts\Providers\EmailProviderInterface;
 use App\Services\Auth\Providers\AuthProvider;
-use App\Services\Auth\Providers\Email\EmailProvider;
+use App\Services\Auth\Providers\EmailProvider;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
 class AuthServiceProvider extends ServiceProvider

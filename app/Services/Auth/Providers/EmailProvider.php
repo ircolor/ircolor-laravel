@@ -1,12 +1,11 @@
 <?php
 
-namespace App\Services\Auth\Providers\Email;
+namespace App\Services\Auth\Providers;
 
 use App\Models\User;
 use App\Services\Auth\Contracts\Providers\EmailProviderInterface;
 use App\Services\Auth\Enums\AuthProviderSignInMethod;
 use App\Services\Auth\Enums\AuthProviderType;
-use App\Services\Auth\Providers\AuthProvider;
 use App\Services\Auth\SignInMethods\PasswordSignInMethod;
 
 class EmailProvider extends AuthProvider implements EmailProviderInterface

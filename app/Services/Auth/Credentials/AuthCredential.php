@@ -6,7 +6,7 @@ use App\Services\Auth\AuthIdentifier;
 use App\Services\Auth\Contracts\AuthCredentialInterface;
 use App\Services\Auth\Contracts\AuthIdentifierInterface;
 use App\Services\Auth\Enums\AuthProviderSignInMethod;
-use App\Services\Auth\Providers\Email\EmailProvider;
+use App\Services\Auth\Providers\EmailProvider;
 use Illuminate\Http\Request;
 
 abstract class AuthCredential implements AuthCredentialInterface
