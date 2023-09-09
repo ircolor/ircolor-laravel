@@ -17,5 +17,10 @@ interface AuthProviderInterface
      */
     public function getProviderSignInMethods(): array;
 
+    /**
+     * @param AuthCredentialInterface $credential
+     * @return User
+     * @throws AuthExceptionInterface
+     */
     public function authenticate(AuthCredentialInterface $credential): User;
 }

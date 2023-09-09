@@ -3,9 +3,21 @@
 namespace App\Repositories\Auth\Contracts;
 
 use App\Models\User;
+use App\Repositories\Base\Contracts\BaseRepositoryInterface;
 use App\Services\Auth\Contracts\AuthIdentifierInterface;
 
-interface UserRepositoryInterface
+interface UserRepositoryInterface extends BaseRepositoryInterface
 {
-    public function getUserByIdentifier(AuthIdentifierInterface $identifier): ?User;
+    /**
+     * @param AuthIdentifierInterface $identifier
+     * @return bool
+     */
+    public function isUserExist(AuthIdentifierInterface $identifier): bool;
+
+    /**
+     * @param AuthIdentifierInterface $identifier
+     * @param string[] $columns
+     * @return User|null
+     */
+    public function getUserByIdentifier(AuthIdentifierInterface $identifier, array $columns = ['*']): ?User;
 }

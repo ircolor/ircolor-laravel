@@ -2,12 +2,13 @@
 
 namespace App\Services\Auth\Contracts\Exceptions;
 
+use App\Services\Auth\Contracts\AuthExceptionInterface;
 use Exception;
 
-class AuthException extends Exception
+class AuthException extends Exception implements AuthExceptionInterface
 {
     private const ERROR_MESSAGE_TEMPLE = '[%s]';
-    private const ERROR_MESSAGE_TEMPLE_WITH_EXCEPTION = '[%s] - (%s)';
+    private const ERROR_MESSAGE_TEMPLE_WITH_EXCEPTION = '[%s] - %s';
 
     /**
      * @param string $error
@@ -16,7 +17,7 @@ class AuthException extends Exception
      */
     public function __construct(protected string $error, protected $code = 400, array $payload = null)
     {
-        $this->error = 'auth.error.' . $this->error;
+        $key = 'auth.error.' . $this->error;
 
         /**
          * @var \Throwable|null $e
@@ -28,8 +29,8 @@ class AuthException extends Exception
                 $e === null ?
                     self::ERROR_MESSAGE_TEMPLE :
                     self::ERROR_MESSAGE_TEMPLE_WITH_EXCEPTION,
-                $this->error,
-                $e ?? (new Exception)->getMessage()
+                $key,
+                $e?->getMessage(),
             ),
             $code,
             $e
@@ -59,5 +60,10 @@ class AuthException extends Exception
             'error' => $this->error,
             'message' => __($this->error),
         ], $this->code);
+    }
+
+    public function getErrorMessage(): string
+    {
+        return $this->error;
     }
 }

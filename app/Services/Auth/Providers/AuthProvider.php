@@ -85,7 +85,7 @@ abstract class AuthProvider implements AuthProviderInterface
             throw new \InvalidArgumentException(sprintf('sign in method %s not defined', $signInMethodEnumValue));
         }
 
-        if (empty($user = $this->userRepository->getUserByIdentifier($credential->getIdentifier()))) {
+        if (!$this->userRepository->isUserExist($credential->getIdentifier())) {
             throw new AuthException('user_not_found');
         }
 
@@ -93,6 +93,11 @@ abstract class AuthProvider implements AuthProviderInterface
          * @var AuthSignInMethodInterface $signInMethod
          */
         $signInMethod = Container::getInstance()->make($signInMethodClass);
+
+        /**
+         * @var User $user
+         */
+        $user = $this->userRepository->getUserByIdentifier($credential->getIdentifier(), $signInMethod->getUserRequiredColumns());
 
         return $signInMethod->__invoke($user, $credential);
     }

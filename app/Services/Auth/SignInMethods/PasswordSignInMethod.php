@@ -24,4 +24,14 @@ class PasswordSignInMethod implements AuthSignInMethodInterface
 
         return $user;
     }
+
+    /**
+     * @inheritDoc
+     */
+    public function getUserRequiredColumns(): array
+    {
+        return [
+            'password'
+        ];
+    }
 }

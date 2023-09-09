@@ -36,4 +36,14 @@ class OAuthSignInMethod implements AuthSignInMethodInterface
 
         return $user;
     }
+
+    /**
+     * @inheritDoc
+     */
+    public function getUserRequiredColumns(): array
+    {
+        return [
+            'email'
+        ];
+    }
 }

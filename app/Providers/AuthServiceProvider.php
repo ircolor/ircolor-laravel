@@ -4,7 +4,11 @@ namespace App\Providers;
 
 use App\Repositories\Auth\Contracts\UserRepositoryInterface;
 use App\Repositories\Auth\UserRepository;
+use App\Services\Auth\AuthExceptionConverter;
+use App\Services\Auth\AuthService;
+use App\Services\Auth\Contracts\AuthExceptionConverterInterface;
 use App\Services\Auth\Contracts\AuthProviderInterface;
+use App\Services\Auth\Contracts\AuthServiceInterface;
 use App\Services\Auth\Contracts\Providers\EmailProviderInterface;
 use App\Services\Auth\Providers\AuthProvider;
 use App\Services\Auth\Providers\EmailProvider;
@@ -38,6 +42,9 @@ class AuthServiceProvider extends ServiceProvider
         $this->registerRepositories();
 
         $this->registerAuthProviders();
+
+        $this->app->bind(AuthExceptionConverterInterface::class, AuthExceptionConverter::class);
+        $this->app->bind(AuthServiceInterface::class, AuthService::class);
     }
 
     private function registerRepositories(): void

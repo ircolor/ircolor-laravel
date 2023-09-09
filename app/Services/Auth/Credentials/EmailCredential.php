@@ -32,4 +32,16 @@ class EmailCredential extends AuthCredential implements EmailCredentialInterface
             AuthIdentifierType::EMAIL
         ];
     }
+
+    public function getOneTimePassword(): ?string
+    {
+        // TODO: Implement getOneTimePassword() method.
+        return null;
+    }
+
+    public function getOneTimePasswordToken(): ?string
+    {
+        // TODO: Implement getOneTimePasswordToken() method.
+        return null;
+    }
 }

@@ -14,4 +14,9 @@ interface AuthSignInMethodInterface
      * @throws AuthException
      */
     public function __invoke(User $user, AuthCredentialInterface $credential): User;
+
+    /**
+     * @return string[]
+     */
+    public function getUserRequiredColumns(): array;
 }

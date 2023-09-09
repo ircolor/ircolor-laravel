@@ -3,8 +3,10 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Services\Auth\Contracts\AuthIdentifierInterface;
 use App\Services\Auth\Contracts\MultiProviderUserInterface;
 use App\Services\Auth\Traits\MultiAuthProvider;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -46,6 +48,16 @@ class User extends Authenticatable implements MultiProviderUserInterface
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    /**
+     * @param Builder<User> $query
+     * @param AuthIdentifierInterface $identifier
+     * @return Builder<User>
+     */
+    public function scopeWhereIdentifier(Builder $query, AuthIdentifierInterface $identifier): Builder
+    {
+        return $query->where($identifier->getIdentifierType()->value, $identifier->getIdentifierValue());
+    }
 
     /**
      * @return HasOne<Account>

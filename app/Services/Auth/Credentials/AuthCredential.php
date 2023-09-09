@@ -7,6 +7,7 @@ use App\Services\Auth\Contracts\AuthCredentialInterface;
 use App\Services\Auth\Contracts\AuthIdentifierInterface;
 use App\Services\Auth\Enums\AuthProviderSignInMethod;
 use App\Services\Auth\Providers\EmailProvider;
+use Illuminate\Container\Container;
 use Illuminate\Http\Request;
 
 abstract class AuthCredential implements AuthCredentialInterface
@@ -31,18 +32,20 @@ abstract class AuthCredential implements AuthCredentialInterface
 
     public static function createFromRequest(Request $request): self
     {
-        $class = new \ReflectionClass(self::CREDENTIAL_MAPPER[$request->input('provider_id')]);
-
         /**
          * @var array<string, string> $payload
          */
         $payload = $request->input('payload', []);
 
-        return $class->newInstance(
-            AuthIdentifier::createFromPayload($payload),
-            $request->enum('sign_in_method', AuthProviderSignInMethod::class),
-            $payload
-        );
+        return Container::getInstance()
+            ->make(
+                self::CREDENTIAL_MAPPER[$request->input('provider_id')],
+                [
+                    'identifier' => AuthIdentifier::createFromPayload($payload),
+                    'signInMethod' => $request->enum('sign_in_method', AuthProviderSignInMethod::class),
+                    'payload' => $payload
+                ]
+            );
     }
 
     public function getProviderId(): string

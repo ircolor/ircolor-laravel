@@ -8,9 +8,24 @@ use App\Services\Auth\Contracts\AuthIdentifierInterface;
 
 class UserRepository implements UserRepositoryInterface
 {
-    public function getUserByIdentifier(AuthIdentifierInterface $identifier): ?User
+    /**
+     * @inheritDoc
+     */
+    public function getUserByIdentifier(AuthIdentifierInterface $identifier, array $columns = ['*']): ?User
     {
         return User::query()
-            ->firstWhere($identifier->getIdentifierType()->value, $identifier->getIdentifierValue());
+            ->whereIdentifier($identifier)
+            ->first($columns);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function isUserExist(AuthIdentifierInterface $identifier): bool
+    {
+        return User::query()
+            ->selectRaw('1')
+            ->whereIdentifier($identifier)
+            ->exists();
     }
 }
