@@ -6,9 +6,13 @@ use App\Models\User;
 use App\Services\Auth\Contracts\AuthExceptionInterface;
 use App\Services\Auth\Contracts\AuthIdentifierInterface;
 use App\Services\Auth\Contracts\AuthResultInterface;
+use App\Services\Base\Contracts\HasBuilderInterface;
 use Illuminate\Container\Container;
 
-class AuthResult implements AuthResultInterface
+/**
+ * @implements HasBuilderInterface<AuthResultInterface>
+ */
+class AuthResult implements AuthResultInterface, HasBuilderInterface
 {
     /**
      * @param AuthIdentifierInterface $identifier
@@ -39,7 +43,7 @@ class AuthResult implements AuthResultInterface
 
     public function isSuccessful(): bool
     {
-        return $this->getException() === null && $this->user !== null;
+        return $this->getException() === null;
     }
 
     public function getException(): ?AuthExceptionInterface

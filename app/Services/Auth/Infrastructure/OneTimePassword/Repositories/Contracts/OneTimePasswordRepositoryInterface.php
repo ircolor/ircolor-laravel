@@ -12,5 +12,7 @@ interface OneTimePasswordRepositoryInterface extends BaseRepositoryInterface
 
     public function getOneTimePasswordWithIdentifierAndToken(AuthIdentifierInterface $identifier, string $token): ?OneTimePasswordEntityInterface;
 
+    public function isOneTimePasswordExists(AuthIdentifierInterface $identifier, string $token): bool;
+
     public function removeOneTimePassword(OneTimePasswordEntityInterface $entity): bool;
 }

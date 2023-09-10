@@ -29,7 +29,7 @@ class OneTimePasswordEntity implements OneTimePasswordEntityInterface
 
     public static function getKeyStatically(AuthIdentifierInterface $identifier, string $token): string
     {
-        return $identifier->getIdentifierValue() . ':' . $token;
+        return substr(hash('sha256', $identifier->getIdentifierValue()),0, 16) . ':' . $token;
     }
 
     public function getIdentifier(): AuthIdentifierInterface
@@ -67,7 +67,7 @@ class OneTimePasswordEntity implements OneTimePasswordEntityInterface
         return [
             'token' => $this->getToken(),
             'code' => !$this->isRecentlyCreated() ? Hash::make($this->getCode()) : $this->getCode(),
-            'interval' => $this->interval->__toString(),
+            'interval' => $this->interval->totalSeconds,
             'created_at' => $this->getCreatedAt()->timestamp
         ];
     }

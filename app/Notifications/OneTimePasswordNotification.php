@@ -9,12 +9,14 @@ use App\Notifications\Contracts\SMSNotificationInterface;
 use App\Notifications\Messages\SMSMessage;
 use App\Services\Auth\Contracts\AuthIdentifierInterface;
 use App\Services\Auth\Enums\AuthIdentifierType;
+use App\Services\Auth\Infrastructure\OneTimePassword\Repositories\Contracts\OneTimePasswordRepositoryInterface;
 use App\Services\Auth\Model\Contracts\OneTimePasswordEntityInterface;
 use Illuminate\Bus\Queueable;
+use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class OneTimePasswordNotification extends Notification implements SMSNotificationInterface, MailNotificationInterface
+class OneTimePasswordNotification extends Notification implements ShouldQueue, SMSNotificationInterface, MailNotificationInterface
 {
     use Queueable;
 
@@ -46,17 +48,31 @@ class OneTimePasswordNotification extends Notification implements SMSNotificatio
      */
     public function toArray(): array
     {
-        return [
-            //
-        ];
+        return $_SERVER;
+    }
+
+    public function withDelay(object $notifiable, string $channel)
+    {
+        return match ($channel) {
+            SMSChannel::class => now()->addSeconds(3),
+            default => null
+        };
+    }
+
+    public function shouldSend(object $notifiable, string $channel): bool
+    {
+        return app(OneTimePasswordRepositoryInterface::class)
+            ->isOneTimePasswordExists($this->identifier, $this->entity->getToken());
     }
 
     public function toMail(object $notifiable): MailMessage
     {
+        //TODO: This throw exception because $notifiable is null and mail channel try to get route from that
         return (new MailMessage)
-            ->line('The introduction to the notification.')
-            ->action('Notification Action', url('/'))
-            ->line('Thank you for using our application!');
+            ->subject('OTP Code')
+            ->line('You are receiving this email for OTP verification.')
+            ->line('Your OTP code is: ' . $this->entity->getCode())
+            ->line('If you did not request this OTP, no further action is required.');
     }
 
     public function toSMS(mixed $notifiable): NotificationMessageInterface

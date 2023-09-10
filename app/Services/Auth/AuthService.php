@@ -50,8 +50,15 @@ class AuthService extends BaseService implements AuthServiceInterface
 
     public function sendOneTimePassword(AuthIdentifierInterface $identifier): AuthResultInterface
     {
-        dump($this->oneTimePasswordService->createOneTimePasswordWithIdentifier($identifier));
+        $otp = $this->oneTimePasswordService->createOneTimePasswordWithIdentifier($identifier);
 
-        return AuthResult::getBuilder()->as($identifier)->successful(new User)->build();
+        return AuthResult::getBuilder()
+            ->as($identifier)
+            ->with([
+                'token' => $otp->getToken(),
+                'expire_in' => $otp->getValidInterval(),
+                'created_at' => $otp->getCreatedAt(),
+            ])
+            ->build();
     }
 }

@@ -2,7 +2,6 @@
 
 namespace App\Services\Auth\Infrastructure\OneTimePassword;
 
-use App\Models\User;
 use App\Notifications\OneTimePasswordNotification;
 use App\Services\Auth\Contracts\AuthIdentifierInterface;
 use App\Services\Auth\Infrastructure\OneTimePassword\Contracts\OneTimePasswordResultInterface;
@@ -32,7 +31,7 @@ class OneTimePasswordService extends BaseService implements OneTimePasswordServi
 
         $this->repository->createOneTimePasswordWithIdentifier($otp);
 
-        Notification::send(new User, new OneTimePasswordNotification($identifier, $otp));
+        Notification::send(new \stdClass(), new OneTimePasswordNotification($identifier, $otp));
 
         return $otp;
     }

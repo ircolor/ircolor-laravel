@@ -3,18 +3,21 @@
 namespace App\Notifications\Channels;
 
 use App\Notifications\Contracts\NotificationChannelInterface;
+use App\Notifications\Messages\SMSMessage;
 use Illuminate\Notifications\Notification;
-use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Log;
 
 class SMSChannel implements NotificationChannelInterface
 {
     public function send(mixed $notifiable, Notification $notification): mixed
     {
+        /**
+         * @var SMSMessage $message
+         */
         $message = $notification->toSMS($notifiable);
 
         if (app()->isLocal()) {
-            Storage::drive('local')
-                ->append('sms.txt', json_encode($message));
+            Log::debug($message->content, $message->toArray());
         } else {
             //TODO: Implement this
         }

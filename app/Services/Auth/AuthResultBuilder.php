@@ -7,8 +7,9 @@ use App\Services\Auth\Contracts\AuthExceptionConverterInterface;
 use App\Services\Auth\Contracts\AuthExceptionInterface;
 use App\Services\Auth\Contracts\AuthIdentifierInterface;
 use App\Services\Auth\Contracts\AuthResultInterface;
+use App\Services\Base\Contracts\EntityBuilderInterface;
 
-class AuthResultBuilder
+class AuthResultBuilder implements EntityBuilderInterface
 {
     private AuthIdentifierInterface $identifier;
 
