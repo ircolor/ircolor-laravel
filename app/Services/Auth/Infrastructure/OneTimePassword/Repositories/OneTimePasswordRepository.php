@@ -1,0 +1,47 @@
+<?php
+
+namespace App\Services\Auth\Infrastructure\OneTimePassword\Repositories;
+
+use App\Repositories\Base\BaseRepository;
+use App\Services\Auth\Contracts\AuthIdentifierInterface;
+use App\Services\Auth\Infrastructure\OneTimePassword\Repositories\Contracts\OneTimePasswordRepositoryInterface;
+use App\Services\Auth\Model\Contracts\OneTimePasswordEntityInterface;
+use App\Services\Auth\Model\OneTimePasswordEntity;
+use App\Services\Auth\Traits\HasKeyPrefix;
+use Illuminate\Redis\Connections\Connection;
+
+class OneTimePasswordRepository extends BaseRepository implements OneTimePasswordRepositoryInterface
+{
+    use HasKeyPrefix;
+
+    public function __construct(private readonly Connection $connection)
+    {
+        self::$prefix = 'otp';
+    }
+
+    public function createOneTimePasswordWithIdentifier(OneTimePasswordEntityInterface $entity): bool
+    {
+        return $this->connection->hMSet(self::getKey($entity->getKey()), $entity->toArray());
+    }
+
+    public function getOneTimePasswordWithIdentifierAndToken(AuthIdentifierInterface $identifier, string $token): ?OneTimePasswordEntityInterface
+    {
+        $key = OneTimePasswordEntity::getKeyStatically($identifier, $token);
+
+        /**
+         * @var array<string, string>|false|null $result
+         */
+        $result = $this->connection->hGetAll(self::getKey($key));
+
+        if (!is_array($result)) {
+            return null;
+        }
+
+        return OneTimePasswordEntity::getBuilder()::fromArray($key, $result);
+    }
+
+    public function removeOneTimePassword(OneTimePasswordEntityInterface $entity): bool
+    {
+        return $this->connection->unlink(self::getKey($entity->getKey())) === 1;
+    }
+}

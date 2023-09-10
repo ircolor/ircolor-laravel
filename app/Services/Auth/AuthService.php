@@ -2,11 +2,14 @@
 
 namespace App\Services\Auth;
 
+use App\Models\User;
 use App\Repositories\Auth\Contracts\UserRepositoryInterface;
 use App\Services\Auth\Contracts\AuthCredentialInterface;
 use App\Services\Auth\Contracts\AuthExceptionInterface;
+use App\Services\Auth\Contracts\AuthIdentifierInterface;
 use App\Services\Auth\Contracts\AuthResultInterface;
 use App\Services\Auth\Contracts\AuthServiceInterface;
+use App\Services\Auth\Infrastructure\OneTimePassword\Contracts\OneTimePasswordServiceInterface;
 use App\Services\Auth\Providers\AuthProvider;
 use App\Services\Base\BaseService;
 
@@ -15,7 +18,7 @@ use App\Services\Base\BaseService;
  */
 class AuthService extends BaseService implements AuthServiceInterface
 {
-    public function __construct(UserRepositoryInterface $repository)
+    public function __construct(UserRepositoryInterface $repository,protected readonly OneTimePasswordServiceInterface $oneTimePasswordService)
     {
         parent::__construct($repository);
     }
@@ -43,5 +46,12 @@ class AuthService extends BaseService implements AuthServiceInterface
         }
 
         return $result;
+    }
+
+    public function sendOneTimePassword(AuthIdentifierInterface $identifier): AuthResultInterface
+    {
+        dump($this->oneTimePasswordService->createOneTimePasswordWithIdentifier($identifier));
+
+        return AuthResult::getBuilder()->as($identifier)->successful(new User)->build();
     }
 }

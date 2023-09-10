@@ -10,6 +10,14 @@ use App\Services\Auth\Contracts\AuthExceptionConverterInterface;
 use App\Services\Auth\Contracts\AuthProviderInterface;
 use App\Services\Auth\Contracts\AuthServiceInterface;
 use App\Services\Auth\Contracts\Providers\EmailProviderInterface;
+use App\Services\Auth\Infrastructure\OneTimePassword\Contracts\OneTimePasswordServiceInterface;
+use App\Services\Auth\Infrastructure\OneTimePassword\Contracts\OneTimePasswordVerifierServiceInterface;
+use App\Services\Auth\Infrastructure\OneTimePassword\OneTimePasswordService;
+use App\Services\Auth\Infrastructure\OneTimePassword\OneTimePasswordVerifierService;
+use App\Services\Auth\Infrastructure\OneTimePassword\Repositories\Contracts\OneTimePasswordRepositoryInterface;
+use App\Services\Auth\Infrastructure\OneTimePassword\Repositories\Contracts\OneTimePasswordVerifierRepositoryInterface;
+use App\Services\Auth\Infrastructure\OneTimePassword\Repositories\OneTimePasswordRepository;
+use App\Services\Auth\Infrastructure\OneTimePassword\Repositories\OneTimePasswordVerifierRepository;
 use App\Services\Auth\Providers\AuthProvider;
 use App\Services\Auth\Providers\EmailProvider;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
@@ -43,6 +51,8 @@ class AuthServiceProvider extends ServiceProvider
 
         $this->registerAuthProviders();
 
+        $this->app->bind(OneTimePasswordVerifierServiceInterface::class, OneTimePasswordVerifierService::class);
+        $this->app->bind(OneTimePasswordServiceInterface::class, OneTimePasswordService::class);
         $this->app->bind(AuthExceptionConverterInterface::class, AuthExceptionConverter::class);
         $this->app->bind(AuthServiceInterface::class, AuthService::class);
     }
@@ -50,6 +60,8 @@ class AuthServiceProvider extends ServiceProvider
     private function registerRepositories(): void
     {
         $this->app->bind(UserRepositoryInterface::class, UserRepository::class);
+        $this->app->bind(OneTimePasswordRepositoryInterface::class, OneTimePasswordRepository::class);
+        $this->app->bind(OneTimePasswordVerifierRepositoryInterface::class, OneTimePasswordVerifierRepository::class);
     }
 
     private function registerAuthProviders(): void
