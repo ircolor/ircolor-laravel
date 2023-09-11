@@ -3,14 +3,19 @@
 namespace App\Notifications\Channels;
 
 use App\Notifications\Contracts\NotificationChannelInterface;
+use App\Notifications\Contracts\SMSNotificationInterface;
 use App\Notifications\Messages\SMSMessage;
 use Illuminate\Notifications\Notification;
 use Illuminate\Support\Facades\Log;
 
 class SMSChannel implements NotificationChannelInterface
 {
-    public function send(mixed $notifiable, Notification $notification): mixed
+    public function send(?object $notifiable, Notification $notification): mixed
     {
+        if (! $notification instanceof SMSNotificationInterface) {
+            throw new \InvalidArgumentException('$notification is not instance of SMSNotification');
+        }
+
         /**
          * @var SMSMessage $message
          */

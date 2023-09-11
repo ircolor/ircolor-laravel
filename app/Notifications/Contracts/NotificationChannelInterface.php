@@ -6,5 +6,5 @@ use Illuminate\Notifications\Notification;
 
 interface NotificationChannelInterface
 {
-    public function send(mixed $notifiable, Notification $notification): mixed;
+    public function send(?object $notifiable, Notification $notification): mixed;
 }

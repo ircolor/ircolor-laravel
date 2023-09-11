@@ -26,11 +26,13 @@ class PhoneProvider extends AuthProvider implements PhoneProviderInterface
     public function createUserWithPhoneAndPassword(string $phone, string $password): User
     {
         // TODO: Implement createUserWithPhoneAndPassword() method.
+        return new User;
     }
 
     public function createUserWithPhone(string $phone): User
     {
         // TODO: Implement createUserWithPhone() method.
+        return new User;
     }
 
 

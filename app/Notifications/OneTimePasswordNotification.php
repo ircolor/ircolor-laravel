@@ -11,6 +11,7 @@ use App\Services\Auth\Contracts\AuthIdentifierInterface;
 use App\Services\Auth\Enums\AuthIdentifierType;
 use App\Services\Auth\Infrastructure\OneTimePassword\Repositories\Contracts\OneTimePasswordRepositoryInterface;
 use App\Services\Auth\Model\Contracts\OneTimePasswordEntityInterface;
+use Carbon\CarbonInterface;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldBeEncrypted;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -42,7 +43,12 @@ class OneTimePasswordNotification extends Notification implements ShouldQueue, S
         };
     }
 
-    public function withDelay(?object $notifiable, string $channel)
+    /**
+     * @param object|null $notifiable
+     * @param string $channel
+     * @return array<string|class-string, CarbonInterface>|CarbonInterface|null
+     */
+    public function withDelay(?object $notifiable, string $channel): array|CarbonInterface|null
     {
         return match ($channel) {
             SMSChannel::class => now()->addSeconds(3),

@@ -9,6 +9,9 @@ use App\Services\Auth\Contracts\AuthIdentifierInterface;
 use App\Services\Auth\Contracts\AuthResultInterface;
 use App\Services\Base\Contracts\EntityBuilderInterface;
 
+/**
+ * @implements EntityBuilderInterface<AuthResultInterface>
+ */
 class AuthResultBuilder implements EntityBuilderInterface
 {
     private AuthIdentifierInterface $identifier;

@@ -7,6 +7,8 @@ use App\Services\Auth\Contracts\AuthIdentifierInterface;
 use App\Services\Auth\Infrastructure\OneTimePassword\Contracts\OneTimePasswordResultInterface;
 use App\Services\Auth\Infrastructure\OneTimePassword\Contracts\OneTimePasswordServiceInterface;
 use App\Services\Auth\Infrastructure\OneTimePassword\Contracts\OneTimePasswordVerifierServiceInterface;
+use App\Services\Auth\Infrastructure\OneTimePassword\Enum\OneTimePasswordVerifyError;
+use App\Services\Auth\Infrastructure\OneTimePassword\Model\OneTimePasswordVerifyResult;
 use App\Services\Auth\Infrastructure\OneTimePassword\Repositories\Contracts\OneTimePasswordRepositoryInterface;
 use App\Services\Auth\Model\Contracts\OneTimePasswordEntityInterface;
 use App\Services\Auth\Model\OneTimePasswordEntity;
@@ -40,8 +42,13 @@ class OneTimePasswordService extends BaseService implements OneTimePasswordServi
     {
         $otp = $this->repository->getOneTimePasswordWithIdentifierAndToken($identifier, $token);
 
-        $result = $this->verifierService->verify($otp, $code);
+        if ($otp === null) {
+            return OneTimePasswordVerifyResult::getBuilder()
+                ->failed(OneTimePasswordVerifyError::TOKEN_NOT_FOUND)
+                ->build();
+        }
 
+        $result = $this->verifierService->verify($otp, $code);
         if ($result->isSuccessful()) {
             $this->repository->removeOneTimePassword($otp);
         }
