@@ -31,9 +31,9 @@ class OneTimePasswordEntityBuilder
         return new OneTimePasswordEntity(
             new AuthIdentifier(AuthIdentifierType::from($identifierType), $identifierValue),
             $token,
-            $array['code'],
-            CarbonInterval::second($array['interval']),
-            Carbon::createFromTimestamp($array['created_at'])
+            $array['c'],
+            CarbonInterval::second($array['i']),
+            Carbon::createFromTimestamp($array['t'])
         );
     }
 

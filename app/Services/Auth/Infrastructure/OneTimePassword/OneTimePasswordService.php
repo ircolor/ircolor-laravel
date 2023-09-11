@@ -31,7 +31,7 @@ class OneTimePasswordService extends BaseService implements OneTimePasswordServi
 
         $this->repository->createOneTimePasswordWithIdentifier($otp);
 
-        Notification::send(new \stdClass(), new OneTimePasswordNotification($identifier, $otp));
+        Notification::send(null, new OneTimePasswordNotification($identifier, $otp));
 
         return $otp;
     }
