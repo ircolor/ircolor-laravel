@@ -11,13 +11,14 @@ class AuthException extends Exception implements AuthExceptionInterface
     private const ERROR_MESSAGE_TEMPLE_WITH_EXCEPTION = '[%s] - %s';
 
     /**
-     * @param string $error
+     * @param string|null $error
      * @param int $code
      * @param array<string, mixed>|null $payload
      */
-    public function __construct(protected string $error, protected $code = 400, array $payload = null)
+    public function __construct(protected ?string $error, protected $code = 400, array $payload = null)
     {
-        $key = 'auth.error.' . $this->error;
+        $key = 'auth.error.' . ($this->error ?? 'unknown');
+        $this->code = $this->error === null ? 500 : $this->code;
 
         /**
          * @var \Throwable|null $e
@@ -42,7 +43,7 @@ class AuthException extends Exception implements AuthExceptionInterface
      *
      * @return bool|null
      */
-    public function report()
+    public function report(): ?bool
     {
         return $this->code < 500;
     }
@@ -64,6 +65,6 @@ class AuthException extends Exception implements AuthExceptionInterface
 
     public function getErrorMessage(): string
     {
-        return $this->error;
+        return $this->error ?? 'unknown';
     }
 }

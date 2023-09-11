@@ -7,7 +7,6 @@ use App\Services\Auth\Model\Builder\OneTimePasswordEntityBuilder;
 use App\Services\Auth\Model\Contracts\OneTimePasswordEntityInterface;
 use Carbon\CarbonInterface;
 use Carbon\CarbonInterval;
-use Faker\Container\Container;
 use Illuminate\Support\Facades\Hash;
 
 class OneTimePasswordEntity implements OneTimePasswordEntityInterface

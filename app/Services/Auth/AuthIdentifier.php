@@ -4,9 +4,12 @@ namespace App\Services\Auth;
 
 use App\Services\Auth\Contracts\AuthIdentifierInterface;
 use App\Services\Auth\Enums\AuthIdentifierType;
+use Illuminate\Notifications\RoutesNotifications;
 
 class AuthIdentifier implements AuthIdentifierInterface
 {
+    use RoutesNotifications;
+
     protected const PAYLOAD_NAME_IDENTIFIER_TYPE_MAPPER = [
         'email' => AuthIdentifierType::EMAIL,
         'phone' => AuthIdentifierType::PHONE
@@ -57,5 +60,20 @@ class AuthIdentifier implements AuthIdentifierInterface
     public function getIdentifierValue(): string
     {
         return $this->value;
+    }
+
+    public function routeNotificationForDatabase(): ?string
+    {
+        return null;
+    }
+
+    public function routeNotificationForMail(): ?string
+    {
+        return $this->type == AuthIdentifierType::EMAIL ? $this->value : null;
+    }
+
+    public function routeNotificationForSMS(): ?string
+    {
+        return $this->type == AuthIdentifierType::PHONE ? $this->value : null;
     }
 }

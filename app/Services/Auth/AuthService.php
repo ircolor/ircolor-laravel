@@ -2,7 +2,7 @@
 
 namespace App\Services\Auth;
 
-use App\Models\User;
+use App\Notifications\OneTimePasswordNotification;
 use App\Repositories\Auth\Contracts\UserRepositoryInterface;
 use App\Services\Auth\Contracts\AuthCredentialInterface;
 use App\Services\Auth\Contracts\AuthExceptionInterface;
@@ -12,6 +12,7 @@ use App\Services\Auth\Contracts\AuthServiceInterface;
 use App\Services\Auth\Infrastructure\OneTimePassword\Contracts\OneTimePasswordServiceInterface;
 use App\Services\Auth\Providers\AuthProvider;
 use App\Services\Base\BaseService;
+use Illuminate\Notifications\RoutesNotifications;
 
 /**
  * @extends BaseService<UserRepositoryInterface>
@@ -51,6 +52,13 @@ class AuthService extends BaseService implements AuthServiceInterface
     public function sendOneTimePassword(AuthIdentifierInterface $identifier): AuthResultInterface
     {
         $otp = $this->oneTimePasswordService->createOneTimePasswordWithIdentifier($identifier);
+
+        if (isset(array_flip(class_uses_recursive($identifier))[RoutesNotifications::class])) {
+            /**
+             * @var AuthIdentifier $identifier
+             */
+            $identifier->notify(new OneTimePasswordNotification($otp));
+        }
 
         return AuthResult::getBuilder()
             ->as($identifier)
