@@ -10,8 +10,10 @@ use App\Services\Auth\Contracts\AuthExceptionConverterInterface;
 use App\Services\Auth\Contracts\AuthProviderInterface;
 use App\Services\Auth\Contracts\AuthServiceInterface;
 use App\Services\Auth\Contracts\Providers\EmailProviderInterface;
+use App\Services\Auth\Infrastructure\OneTimePassword\Contracts\OneTimePasswordRateLimiterServiceInterface;
 use App\Services\Auth\Infrastructure\OneTimePassword\Contracts\OneTimePasswordServiceInterface;
 use App\Services\Auth\Infrastructure\OneTimePassword\Contracts\OneTimePasswordVerifierServiceInterface;
+use App\Services\Auth\Infrastructure\OneTimePassword\OneTimePasswordRateLimiterService;
 use App\Services\Auth\Infrastructure\OneTimePassword\OneTimePasswordService;
 use App\Services\Auth\Infrastructure\OneTimePassword\OneTimePasswordVerifierService;
 use App\Services\Auth\Infrastructure\OneTimePassword\Repositories\Contracts\OneTimePasswordRepositoryInterface;
@@ -51,6 +53,7 @@ class AuthServiceProvider extends ServiceProvider
 
         $this->registerAuthProviders();
 
+        $this->app->bind(OneTimePasswordRateLimiterServiceInterface::class, OneTimePasswordRateLimiterService::class);
         $this->app->bind(OneTimePasswordVerifierServiceInterface::class, OneTimePasswordVerifierService::class);
         $this->app->bind(OneTimePasswordServiceInterface::class, OneTimePasswordService::class);
         $this->app->bind(AuthExceptionConverterInterface::class, AuthExceptionConverter::class);
