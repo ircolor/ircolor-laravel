@@ -57,7 +57,7 @@ class AuthException extends Exception implements AuthExceptionInterface
     public function render($request)
     {
         return response([
-            'isSuccessful' => false,
+            'is_successful' => false,
             'error' => $this->error,
             'message' => __($this->error),
         ], $this->code);
