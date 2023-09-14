@@ -12,7 +12,7 @@ class AuthIdentifier implements AuthIdentifierInterface
 
     protected const PAYLOAD_NAME_IDENTIFIER_TYPE_MAPPER = [
         'email' => AuthIdentifierType::EMAIL,
-        'phone' => AuthIdentifierType::PHONE
+        'phone' => AuthIdentifierType::MOBILE
     ];
 
     protected AuthIdentifierType $type;
@@ -74,6 +74,6 @@ class AuthIdentifier implements AuthIdentifierInterface
 
     public function routeNotificationForSMS(): ?string
     {
-        return $this->type == AuthIdentifierType::PHONE ? $this->value : null;
+        return $this->type == AuthIdentifierType::MOBILE ? $this->value : null;
     }
 }

@@ -12,7 +12,7 @@ class PhoneCredential extends AuthCredential implements PhoneCredentialInterface
     public function getSupportedIdentifiersTypes(): array
     {
         return [
-            AuthIdentifierType::PHONE
+            AuthIdentifierType::MOBILE
         ];
     }
 

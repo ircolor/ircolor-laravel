@@ -59,7 +59,8 @@ class OneTimePasswordSignInMethod implements AuthSignInMethodInterface
     public function getUserRequiredColumns(): array
     {
         return [
-            'phone'
+            'id',
+            'mobile'
         ];
     }
 }
