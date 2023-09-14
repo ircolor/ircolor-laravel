@@ -8,6 +8,8 @@ use App\Services\Auth\Enums\AuthIdentifierType;
 class PhoneCredential extends AuthCredential implements PhoneCredentialInterface
 {
     protected ?string $password;
+    protected ?string $token;
+    protected ?string $code;
 
     public function getSupportedIdentifiersTypes(): array
     {
@@ -18,25 +20,21 @@ class PhoneCredential extends AuthCredential implements PhoneCredentialInterface
 
     public function getOneTimePassword(): ?string
     {
-        // TODO: Implement getOneTimePassword() method.
-        return null;
+        return $this->code;
     }
 
     public function getOneTimePasswordToken(): ?string
     {
-        // TODO: Implement getOneTimePasswordToken() method.
-        return null;
+        return $this->token;
     }
 
     public function getPassword(): ?string
     {
-        // TODO: Implement getPassword() method.
         return $this->password;
     }
 
     public function getPhone(): string
     {
-        // TODO: Implement getPhone() method.
         return $this->getIdentifier()->getIdentifierValue();
     }
 
