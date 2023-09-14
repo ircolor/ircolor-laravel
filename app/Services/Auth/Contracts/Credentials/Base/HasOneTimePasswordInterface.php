@@ -7,4 +7,6 @@ interface HasOneTimePasswordInterface
     public function getOneTimePassword(): ?string;
 
     public function getOneTimePasswordToken(): ?string;
+
+    public static function getOneTimePasswordRule(): array|string;
 }

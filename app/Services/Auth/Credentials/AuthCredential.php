@@ -9,6 +9,7 @@ use App\Services\Auth\Enums\AuthProviderSignInMethod;
 use App\Services\Auth\Providers\EmailProvider;
 use Illuminate\Container\Container;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 
 abstract class AuthCredential implements AuthCredentialInterface
 {
@@ -61,6 +62,21 @@ abstract class AuthCredential implements AuthCredentialInterface
     public function getSignInMethod(): AuthProviderSignInMethod
     {
         return $this->signInMethod;
+    }
+
+    public static function getPayloadRules(): array
+    {
+        $rules = [];
+
+        if (method_exists(static::class, 'getPasswordRule')) {
+            $rules = $rules + Arr::wrap(static::getPasswordRule());
+        }
+
+        if (method_exists(static::class, 'getOneTimePassword')) {
+            $rules = $rules + Arr::wrap(static::getOneTimePasswordRule());
+        }
+
+        return $rules;
     }
 
     /**

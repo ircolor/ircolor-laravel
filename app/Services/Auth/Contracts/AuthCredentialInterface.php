@@ -24,4 +24,6 @@ interface AuthCredentialInterface
      * @return AuthIdentifierType[]
      */
     public function getSupportedIdentifiersTypes(): array;
+
+    public static function getPayloadRules(): array;
 }
