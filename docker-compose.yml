@@ -1,0 +1,21 @@
+version: '3'
+
+volumes:
+    db_volume:
+
+services:
+    mysql:
+        image: mysql:8
+        container_name: "Database"
+        restart: unless-stopped
+        environment:
+            TZ: "Asia/Tehran"
+            MYSQL_ALLOW_EMPTY_PASSWORD: 0
+            MYSQL_RANDOM_ROOT_PASSWORD: 1
+            MYSQL_USER: "laravel"
+            MYSQL_PASSWORD: "laravel"
+            MYSQL_DATABASE: "laravel"
+        volumes:
+            - "db_volume:/var/lib/mysql"
+        ports:
+             - "127.0.0.1:3306:3306/tcp"

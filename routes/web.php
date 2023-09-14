@@ -16,3 +16,10 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/login/callback', function () {
+    //TODO: Remove in production
+    $user = \Laravel\Socialite\Facades\Socialite::driver('google')->stateless()->user();
+
+    dump($user);
+});
