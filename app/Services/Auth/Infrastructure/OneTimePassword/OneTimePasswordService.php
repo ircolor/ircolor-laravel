@@ -30,7 +30,7 @@ class OneTimePasswordService extends BaseService implements OneTimePasswordServi
     {
         if (!$this->rateLimiterService->pass($identifier)) {
             //TODO: Returning result interface may be better approach
-            throw new AuthException(OneTimePasswordError::RATE_LIMIT_EXCEEDED->value);
+            throw new AuthException(OneTimePasswordError::RATE_LIMIT_EXCEEDED->value, 429);
         }
 
         $otp = OneTimePasswordEntity::getBuilder()
