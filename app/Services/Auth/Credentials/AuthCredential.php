@@ -7,6 +7,7 @@ use App\Services\Auth\Contracts\AuthCredentialInterface;
 use App\Services\Auth\Contracts\AuthIdentifierInterface;
 use App\Services\Auth\Enums\AuthProviderSignInMethod;
 use App\Services\Auth\Providers\EmailProvider;
+use App\Services\Auth\Providers\PhoneProvider;
 use Illuminate\Container\Container;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
@@ -17,7 +18,8 @@ abstract class AuthCredential implements AuthCredentialInterface
      * @type array<string, class-string<AuthCredentialInterface>>
      */
     public const CREDENTIAL_MAPPER = [
-        EmailProvider::ID => EmailCredential::class
+        EmailProvider::ID => EmailCredential::class,
+        PhoneProvider::ID => PhoneCredential::class
     ];
 
     /**
