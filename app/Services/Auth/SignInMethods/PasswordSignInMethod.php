@@ -31,6 +31,7 @@ class PasswordSignInMethod implements AuthSignInMethodInterface
     public function getUserRequiredColumns(): array
     {
         return [
+            'id',
             'password'
         ];
     }
