@@ -35,14 +35,14 @@ abstract class AuthCredential implements AuthCredentialInterface
         /**
          * @var array<string, string> $payload
          */
-        $payload = $request->input('payload', []);
+        $payload = $request->input('credential.payload', []);
 
         return Container::getInstance()
             ->make(
-                self::CREDENTIAL_MAPPER[$request->input('provider_id')],
+                self::CREDENTIAL_MAPPER[$request->input('credential.provider_id')],
                 [
-                    'identifier' => AuthIdentifier::createFromPayload($payload),
-                    'signInMethod' => $request->enum('sign_in_method', AuthProviderSignInMethod::class),
+                    'identifier' => AuthIdentifier::getBuilder()->fromPlainIdentifier($request->input('credential.identifier'))->build(),
+                    'signInMethod' => $request->enum('credential.sign_in_method', AuthProviderSignInMethod::class),
                     'payload' => $payload
                 ]
             );

@@ -4,9 +4,14 @@ namespace App\Services\Auth;
 
 use App\Services\Auth\Contracts\AuthIdentifierInterface;
 use App\Services\Auth\Enums\AuthIdentifierType;
+use App\Services\Auth\Model\Builder\AuthIdentifierBuilder;
+use App\Services\Base\Contracts\HasBuilderInterface;
 use Illuminate\Notifications\RoutesNotifications;
 
-class AuthIdentifier implements AuthIdentifierInterface
+/**
+ * @implements HasBuilderInterface<AuthIdentifierInterface>
+ */
+class AuthIdentifier implements AuthIdentifierInterface, HasBuilderInterface
 {
     use RoutesNotifications;
 
@@ -28,28 +33,9 @@ class AuthIdentifier implements AuthIdentifierInterface
         $this->value = $value;
     }
 
-    /**
-     * @param array<string, string> $payload
-     * @return self
-     */
-    public static function createFromPayload(array $payload): self
+    public static function getBuilder(): AuthIdentifierBuilder
     {
-        /**
-         * @type AuthIdentifierType|null $type
-         */
-        $type = null;
-
-        foreach (self::PAYLOAD_NAME_IDENTIFIER_TYPE_MAPPER as $key => $value) {
-            if (!empty($payload[$key])) {
-                $type = $value;
-                break;
-            }
-        }
-
-        if ($type === null)
-            throw new \InvalidArgumentException('$type is null');
-
-        return new self($type, $payload[$type->value]);
+        return new AuthIdentifierBuilder;
     }
 
     public function getIdentifierType(): AuthIdentifierType
