@@ -2,13 +2,12 @@
 
 namespace App\Services\Auth\Model\Builder;
 
-use App\Services\Auth\AuthIdentifier;
 use App\Services\Auth\Contracts\AuthIdentifierInterface;
-use App\Services\Auth\Enums\AuthIdentifierType;
 use App\Services\Auth\Model\Contracts\OneTimePasswordEntityInterface;
 use App\Services\Auth\Model\OneTimePasswordEntity;
 use Carbon\Carbon;
 use Carbon\CarbonInterval;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Str;
 
@@ -24,12 +23,12 @@ class OneTimePasswordEntityBuilder
      * @param array<string, string> $array
      * @return OneTimePasswordEntityInterface
      */
-    public static function fromArray(string $key, array $array): OneTimePasswordEntityInterface
+    public static function fromArray(AuthIdentifierInterface $identifier, string $key, array $array): OneTimePasswordEntityInterface
     {
-        [$identifierType, $identifierValue, $token] = explode(':', $key, 3);
+        $token = Arr::last(explode(':', $key, 3));
 
         return new OneTimePasswordEntity(
-            new AuthIdentifier(AuthIdentifierType::from($identifierType), $identifierValue),
+            $identifier,
             $token,
             $array['c'],
             CarbonInterval::second($array['i']),

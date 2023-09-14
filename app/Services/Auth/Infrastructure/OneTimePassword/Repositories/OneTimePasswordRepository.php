@@ -37,7 +37,7 @@ class OneTimePasswordRepository extends BaseRepository implements OneTimePasswor
             return null;
         }
 
-        return OneTimePasswordEntity::getBuilder()::fromArray($key, $result);
+        return OneTimePasswordEntity::getBuilder()::fromArray($identifier, $key, $result);
     }
 
     public function isOneTimePasswordExists(AuthIdentifierInterface $identifier, string $token): bool
