@@ -12,6 +12,9 @@ class AuthExceptionConverter implements AuthExceptionConverterInterface
         'credential_not_match' => [
             'user_not_found',
             'invalid_password'
+        ],
+        'token_not_found_or_expired' => [
+            'token_not_found'
         ]
     ];
 
