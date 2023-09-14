@@ -40,13 +40,15 @@ class OneTimePasswordRateLimiterService extends BaseService implements OneTimePa
             $this->createLimiterInstance($identifier);
         }
 
-        $result = [];
-
         foreach ($this->limiterInstances as $limiterInstance) {
-            $result[] = method_exists($limiterInstance, 'pass') ? $limiterInstance->pass($identifier) : false;
+            $result = method_exists($limiterInstance, 'pass') ? $limiterInstance->pass($identifier) : false;
+
+            if (!$result) {
+                return false;
+            }
         }
 
-        return array_reduce($result, fn(bool $p, bool $n) => $p && $n, true);
+        return true;
     }
 
     private function createLimiterInstance(AuthIdentifierInterface $identifier): void
