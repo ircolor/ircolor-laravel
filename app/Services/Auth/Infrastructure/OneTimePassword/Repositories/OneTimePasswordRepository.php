@@ -34,7 +34,7 @@ class OneTimePasswordRepository extends BaseRepository implements OneTimePasswor
          */
         $result = $this->connection->hGetAll(self::getKey($key));
 
-        if (!is_array($result)) {
+        if (!is_array($result) || empty($result)) {
             return null;
         }
 
