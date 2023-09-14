@@ -19,12 +19,16 @@ class OneTimePasswordEntityBuilder
     protected ?CarbonInterval $interval = null;
 
     /**
+     * @param AuthIdentifierInterface $identifier
      * @param string $key
      * @param array<string, string> $array
      * @return OneTimePasswordEntityInterface
      */
     public static function fromArray(AuthIdentifierInterface $identifier, string $key, array $array): OneTimePasswordEntityInterface
     {
+        /**
+         * @var string $token
+         */
         $token = Arr::last(explode(':', $key, 3));
 
         return new OneTimePasswordEntity(

@@ -38,7 +38,10 @@ class PhoneCredential extends AuthCredential implements PhoneCredentialInterface
         return $this->getIdentifier()->getIdentifierValue();
     }
 
-    public static function getOneTimePasswordRule(): array|string
+    /**
+     * @inheritDoc
+     */
+    public static function getOneTimePasswordRule(): array
     {
         return [
             'token' => ['required_if:credential.sign_in_method,otp', 'string', 'size:8'],
@@ -46,7 +49,10 @@ class PhoneCredential extends AuthCredential implements PhoneCredentialInterface
         ];
     }
 
-    public static function getPasswordRule(): array|string
+    /**
+     * @inheritDoc
+     */
+    public static function getPasswordRule(): array
     {
         return [
             'password' => ['required_if:credential.sign_in_method,password', 'string', 'min:8', 'max:32']

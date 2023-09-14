@@ -10,6 +10,9 @@ use Illuminate\Validation\ValidationException;
 use libphonenumber\PhoneNumberType;
 use Propaganistas\LaravelPhone\PhoneNumber;
 
+/**
+ * @implements EntityBuilderInterface<AuthIdentifierInterface>
+ */
 class AuthIdentifierBuilder implements EntityBuilderInterface
 {
     private ?AuthIdentifierType $identifierType = null;

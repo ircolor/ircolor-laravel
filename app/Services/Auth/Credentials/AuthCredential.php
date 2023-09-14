@@ -40,11 +40,16 @@ abstract class AuthCredential implements AuthCredentialInterface
          */
         $payload = $request->input('credential.payload', []);
 
+        /**
+         * @var string $identifier
+         */
+        $identifier = $request->input('credential.identifier');
+
         return Container::getInstance()
             ->make(
                 self::CREDENTIAL_MAPPER[$request->input('credential.provider_id')],
                 [
-                    'identifier' => AuthIdentifier::getBuilder()->fromPlainIdentifier($request->input('credential.identifier'))->build(),
+                    'identifier' => AuthIdentifier::getBuilder()->fromPlainIdentifier($identifier)->build(),
                     'signInMethod' => $request->enum('credential.sign_in_method', AuthProviderSignInMethod::class),
                     'payload' => $payload
                 ]
@@ -74,7 +79,7 @@ abstract class AuthCredential implements AuthCredentialInterface
             $rules = $rules + Arr::wrap(static::getPasswordRule());
         }
 
-        if (method_exists(static::class, 'getOneTimePassword')) {
+        if (method_exists(static::class, 'getOneTimePasswordRule')) {
             $rules = $rules + Arr::wrap(static::getOneTimePasswordRule());
         }
 

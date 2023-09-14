@@ -4,6 +4,7 @@ namespace App\Services\Auth\Contracts;
 
 use App\Services\Auth\Enums\AuthIdentifierType;
 use App\Services\Auth\Enums\AuthProviderSignInMethod;
+use Illuminate\Contracts\Validation\ValidationRule;
 
 interface AuthCredentialInterface
 {
@@ -25,5 +26,8 @@ interface AuthCredentialInterface
      */
     public function getSupportedIdentifiersTypes(): array;
 
+    /**
+     * @return array<string, string|string[]|ValidationRule>
+     */
     public static function getPayloadRules(): array;
 }

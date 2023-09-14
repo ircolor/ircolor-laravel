@@ -47,7 +47,7 @@ class OneTimePasswordNotification extends Notification implements ShouldQueue, S
     {
         return match ($notifiable->getIdentifierType()) {
             AuthIdentifierType::EMAIL => ['mail'],
-            AuthIdentifierType::PHONE => [SMSChannel::class],
+            AuthIdentifierType::MOBILE => [SMSChannel::class],
         };
     }
 
