@@ -3,10 +3,11 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Api\AuthLoginRequest;
 use App\Http\Requests\Api\AuthRegisterRequest;
-use App\Http\Resources\RegisterUserResource;
 use App\Services\ApiResponseService\ApiResponseFacade;
 use App\Services\AuthService\AuthService;
+use function auth;
 
 class AuthController extends Controller
 {
@@ -30,5 +31,24 @@ class AuthController extends Controller
             ->withData(resolve('RegisterUserResource', ['data' => $registrationResult['data']]))
             ->withStatus(200)
             ->build()->response();
+    }
+
+    public function login(AuthLoginRequest $request)
+    {
+        $loginResult = $this->authService->login($request->validated());
+
+        if (!$loginResult['success']) {
+            return ApiResponseFacade::withSuccess($loginResult['success'])
+                ->withMessage($loginResult['message'])
+                ->withStatus(401)
+                ->build()->response();
+        }
+        return ApiResponseFacade::withSuccess($loginResult['success'])
+            ->withMessage($loginResult['message'])
+            ->withAppends([
+                "token" => auth()->user()->createToken($request->userAgent())->plainTextToken,
+            ])->withStatus(200)
+            ->build()->response();
+
     }
 }
