@@ -32,7 +32,7 @@ class ApiBaseRequest extends FormRequest
     public function failedValidation(Validator $validator)
     {
         throw new HttpResponseException(response()->json([
-            'ok' => false,
+            'success' => false,
             'message' => 'Validation Error',
             'data' => $validator->errors()
         ], 422));
