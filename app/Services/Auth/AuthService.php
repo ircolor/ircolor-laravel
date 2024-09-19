@@ -15,7 +15,7 @@ class AuthService
         $newUser = User::query()->create($userInputs);
         return [
             "success" => true,
-            "message" => __("messages.User has been registered successfully"),
+            "message" => __("messages.registered_successfully"),
             "data" => $newUser,
         ];
     }
@@ -29,7 +29,7 @@ class AuthService
                 Auth::login($finduser);
                 return [
                     "success" => true,
-                    "message" => __("auth.you have login successfully"),
+                    "message" => __("auth.login_successfully"),
                 ];
 
             } else {
@@ -42,14 +42,14 @@ class AuthService
                 Auth::login($newUser);
                 return [
                     "success" => true,
-                    "message" => __("auth.you have login successfully"),
+                    "message" => __("auth.login_successfully"),
                     "data" => $newUser
                 ];
             }
         } catch (Exception $e) {
             return [
                 "success" => false,
-                "message" => __("messages.Something went wrong, please try again later"),
+                "message" => __("messages.registeration_error"),
             ];
         }
     }
@@ -59,12 +59,12 @@ class AuthService
         if (!Auth::attempt($userInputs)) {
             return [
                 "success" => false,
-                "message" => __("auth.email or password is wrong"),
+                "message" => __("auth.wrong_email_or_password"),
             ];
         }
         return [
             "success" => true,
-            "message" => __("auth.you have login successfully")
+            "message" => __("auth.login_successfully")
         ];
     }
 }

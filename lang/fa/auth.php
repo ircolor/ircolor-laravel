@@ -16,7 +16,7 @@ return [
     'failed' => 'اطلاعات وارد شده صحیح نمی باشد',
     'password' => 'رمزعبور صحیح نیست',
     'throttle' => 'درخواست بیش از حد مجاز! لطفا بعد از :seconds ثانیه دوباره امتحان کنید',
-    'email or password is wrong' => 'ایمیل یا پسورد وارد شده اشتباه است',
-    'you have login successfully' => 'با موفقیت وارد شدید',
+    'wrong_email_or_password' => 'ایمیل یا پسورد وارد شده اشتباه است',
+    'login_successfully' => 'با موفقیت وارد شدید',
 
 ];
