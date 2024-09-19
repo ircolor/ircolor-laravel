@@ -16,11 +16,11 @@ class RegisterUserResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
+            "id" => $this->id,
             "email" => $this->email,
             "name" => $this->name,
-            "updated_at" => Carbon::parse($this->updated_at)->format('Y-m-d H:i:s'),
-            "created_at" => Carbon::parse($this->created_at)->format('Y-m-d H:i:s'),
-            "id" => $this->id,
+            "updated_at" => $this->updated_at,
+            "created_at" => $this->created_at,
         ];
     }
 }
