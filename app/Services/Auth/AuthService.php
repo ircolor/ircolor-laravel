@@ -3,8 +3,9 @@
 namespace App\Services\Auth;
 
 use App\Models\User;
-use Exception;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Laravel\Socialite\Facades\Socialite;
 
 class AuthService
@@ -12,7 +13,11 @@ class AuthService
 
     public function register(array $userInputs)
     {
-        $newUser = User::query()->create($userInputs);
+        $newUser = User::query()->create([
+            "email" => $userInputs['email'],
+            "name" => $userInputs['name'],
+            'password' => $userInputs['password']
+        ]);
         return [
             "success" => true,
             "message" => __("messages.registered_successfully"),
@@ -22,22 +27,23 @@ class AuthService
 
     public function loginWithGoogle()
     {
-        try {
+        return rescue(function () {
             $user = Socialite::driver('google')->user();
             $finduser = User::where('google_id', $user->id)->orWhere('email', $user->email)->first();
+
             if ($finduser) {
                 Auth::login($finduser);
                 return [
                     "success" => true,
                     "message" => __("auth.login_successfully"),
                 ];
-
             } else {
                 $newUser = User::create([
                     'name' => $user->name,
                     'email' => $user->email,
                     'google_id' => $user->id,
-                    'password' => encrypt('123456dummy')
+                    'email_verified_at' => Carbon::now(),
+                    'password' => encrypt('#@Auth|With|GooglE@#')
                 ]);
                 Auth::login($newUser);
                 return [
@@ -46,12 +52,12 @@ class AuthService
                     "data" => $newUser
                 ];
             }
-        } catch (Exception $e) {
+        }, function () {
             return [
                 "success" => false,
                 "message" => __("messages.registeration_error"),
             ];
-        }
+        });
     }
 
     public function login(array $userInputs)
