@@ -12,7 +12,7 @@ return [
                 /*
                  * Route for accessing api documentation interface
                  */
-                'api' => 'api/ir-color/document',
+                'api' => 'api/documentation',
             ],
             'paths' => [
                 /*
