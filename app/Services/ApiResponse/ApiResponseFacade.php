@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services\ApiResponseService;
+namespace App\Services\ApiResponse;
 
 use Illuminate\Support\Facades\Facade;
 

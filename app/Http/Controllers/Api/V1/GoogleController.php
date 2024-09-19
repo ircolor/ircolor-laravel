@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
-use App\Services\ApiResponseService\ApiResponseFacade;
-use App\Services\AuthService\AuthService;
+use App\Services\ApiResponse\ApiResponseFacade;
+use App\Services\Auth\AuthService;
 use Laravel\Socialite\Facades\Socialite;
 
 class GoogleController extends Controller

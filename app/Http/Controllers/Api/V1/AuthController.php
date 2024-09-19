@@ -5,8 +5,8 @@ namespace App\Http\Controllers\Api\V1;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\AuthLoginRequest;
 use App\Http\Requests\Api\AuthRegisterRequest;
-use App\Services\ApiResponseService\ApiResponseFacade;
-use App\Services\AuthService\AuthService;
+use App\Services\ApiResponse\ApiResponseFacade;
+use App\Services\Auth\AuthService;
 use OpenApi\Annotations as OA;
 use function auth;
 

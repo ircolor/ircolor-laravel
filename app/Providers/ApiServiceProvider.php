@@ -3,7 +3,7 @@
 namespace App\Providers;
 
 use App\Http\Resources\RegisterUserResource;
-use App\Services\ApiResponseService\ApiResponseBuilder;
+use App\Services\ApiResponse\ApiResponseBuilder;
 use Illuminate\Support\ServiceProvider;
 
 class ApiServiceProvider extends ServiceProvider
