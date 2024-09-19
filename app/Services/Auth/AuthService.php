@@ -12,16 +12,7 @@ class AuthService
 
     public function register(array $userInputs)
     {
-        try {
-            $newUser = User::query()->create($userInputs);
-
-        } catch (Exception $e) {
-            return [
-                "success" => false,
-                "message" => __("messages.Something went wrong, please try again later"),
-                "data" => "",
-            ];
-        }
+        $newUser = User::query()->create($userInputs);
         return [
             "success" => true,
             "message" => __("messages.User has been registered successfully"),
