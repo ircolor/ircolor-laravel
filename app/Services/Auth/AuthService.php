@@ -44,7 +44,7 @@ class AuthService
                     'email' => $user->email,
                     'google_id' => $user->id,
                     'email_verified_at' => Carbon::now(),
-                    'password' => encrypt('#@Auth|With|GooglE@#')
+                    'password' => null
                 ]);
                 $newUser['token'] = $newUser->createToken('api')->plainTextToken;
                 return [
