@@ -12,7 +12,6 @@ class ApiResponseFacade extends Facade
      * @method static ApiResponseBuilder withData(mixed $data)
      * @method static ApiResponseBuilder withStatus(int $status)
      * @method static ApiResponseBuilder withSuccess(bool $state)
-     * @method static ApiResponseBuilder withAppends(array $appends)
      * @method static ApiResponse build()
      */
 

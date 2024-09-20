@@ -166,7 +166,7 @@ class AuthController extends Controller
         }
         return ApiResponseFacade::withSuccess($loginResult['success'])
             ->withMessage($loginResult['message'])
-            ->withAppends([
+            ->withData([
                 "token" => auth()->user()->createToken($request->userAgent())->plainTextToken,
             ])->withStatus(200)
             ->build()->response();

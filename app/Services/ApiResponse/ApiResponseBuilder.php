@@ -36,12 +36,6 @@ class ApiResponseBuilder
         return $this;
     }
 
-    public function withAppends(array $appends): ApiResponseBuilder
-    {
-        $this->response->setAppends($appends);
-        return $this;
-    }
-
     public function build(): ApiResponse
     {
         return $this->response;
