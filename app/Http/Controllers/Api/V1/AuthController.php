@@ -155,6 +155,59 @@ class AuthController extends Controller
             ->build()->response();
     }
 
+    /**
+     * @OA\Post(
+     *     tags={"Authentication"},
+     *     path="/v1/auth/login",
+     *     summary="Login user",
+     *     description="Login new user",
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\MediaType(
+     *             mediaType="multipart/form-data",
+     *             @OA\Schema(
+     *                 @OA\Property(
+     *                     property="email",
+     *                     type="string",
+     *                     format="email",
+     *                     example="email@gmail.com"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="password",
+     *                     type="string",
+     *                     format="password",
+     *                     example="123456",
+     *                     minLength=6
+     *                 )
+     *             )
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="User has been login successfully",
+     *         @OA\JsonContent(
+     *             @OA\Property(
+     *                 property="success",
+     *                 type="boolean",
+     *                 example=true
+     *             ),
+     *             @OA\Property(
+     *                 property="message",
+     *                 type="string",
+     *                 example="User has been login successfully"
+     *             ),
+     *             @OA\Property(
+     *                 property="data",
+     *                 type="object",
+     *                 @OA\Property(
+     *                     property="token",
+     *                     type="string"
+     *                 ),
+     *             )
+     *         )
+     *     ),
+     * )
+     */
     public function login(AuthLoginRequest $request)
     {
         $loginResult = $this->authService->login($request->validated());
