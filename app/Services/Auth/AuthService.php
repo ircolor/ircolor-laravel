@@ -5,18 +5,17 @@ namespace App\Services\Auth;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
 use Laravel\Socialite\Facades\Socialite;
 
 class AuthService
 {
 
-    public function register(array $userInputs)
+    public function register(string $name, string $email, string $password)
     {
-        $newUser = User::query()->create([
-            "email" => $userInputs['email'],
-            "name" => $userInputs['name'],
-            'password' => $userInputs['password']
+        $newUser = User::create([
+            "email" => $email,
+            "name" => $name,
+            'password' => $password
         ]);
         $newUser['token'] = $newUser->createToken('api')->plainTextToken;
         return [
@@ -56,14 +55,14 @@ class AuthService
         }, function () {
             return [
                 "success" => false,
-                "message" => __("messages.registeration_error"),
+                "message" => __("messages.registration_error"),
             ];
         });
     }
 
-    public function login(array $userInputs)
+    public function login($email, $password)
     {
-        if (!Auth::attempt($userInputs)) {
+        if (!Auth::attempt(['email' => $email, 'password' => $password])) {
             return [
                 "success" => false,
                 "message" => __("auth.wrong_email_or_password"),

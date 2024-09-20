@@ -17,6 +17,7 @@ class AuthController extends Controller
     public function __construct(private AuthService $authService)
     {
     }
+
     /**
      * @OA\Post(
      *     tags={"Authentication"},
@@ -140,7 +141,7 @@ class AuthController extends Controller
 
     public function register(AuthRegisterRequest $request)
     {
-        $registrationResult = $this->authService->register($request->toArray());
+        $registrationResult = $this->authService->register($request->input('name'), $request->input('email'), $request->input('password'));
 
         if (!$registrationResult['success']) {
             return ApiResponseFacade::withSuccess($registrationResult['success'])
@@ -210,7 +211,7 @@ class AuthController extends Controller
      */
     public function login(AuthLoginRequest $request)
     {
-        $loginResult = $this->authService->login($request->validated());
+        $loginResult = $this->authService->login($request->input('email'), $request->input('password'));
 
         if (!$loginResult['success']) {
             return ApiResponseFacade::withSuccess($loginResult['success'])
