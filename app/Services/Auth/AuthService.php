@@ -32,9 +32,9 @@ class AuthService
             $finduser = User::where('google_id', $user->id)->orWhere('email', $user->email)->first();
 
             if ($finduser) {
-                Auth::login($finduser);
                 return [
                     "success" => true,
+                    "data" => $finduser->createToken('api')->plainTextToken,
                     "message" => __("auth.login_successfully"),
                 ];
             } else {
@@ -45,7 +45,7 @@ class AuthService
                     'email_verified_at' => Carbon::now(),
                     'password' => encrypt('#@Auth|With|GooglE@#')
                 ]);
-                Auth::login($newUser);
+                $newUser['token'] = $newUser->createToken('api')->plainTextToken;
                 return [
                     "success" => true,
                     "message" => __("auth.login_successfully"),

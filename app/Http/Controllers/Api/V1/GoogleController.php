@@ -31,6 +31,7 @@ class GoogleController extends Controller
         return ApiResponseFacade::withSuccess($loginResult['success'])
             ->withMessage($loginResult['message'])
             ->withStatus(200)
+            ->withData($loginResult['data'])
             ->build()->response();
     }
 }
