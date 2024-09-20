@@ -17,11 +17,13 @@ class AuthService
             "name" => $name,
             'password' => $password
         ]);
-        $newUser['token'] = $newUser->createToken('api')->plainTextToken;
         return [
             "success" => true,
             "message" => __("messages.registered_successfully"),
-            "data" => $newUser,
+            "data" => [
+                "user" => $newUser,
+                "token" => $newUser->createToken('api')->plainTextToken
+            ],
         ];
     }
 
@@ -45,11 +47,13 @@ class AuthService
                     'email_verified_at' => Carbon::now(),
                     'password' => null
                 ]);
-                $newUser['token'] = $newUser->createToken('api')->plainTextToken;
                 return [
                     "success" => true,
                     "message" => __("auth.login_successfully"),
-                    "data" => $newUser
+                    "data" => [
+                        "user" => $newUser,
+                        "token" => $newUser->createToken('api')->plainTextToken
+                    ]
                 ];
             }
         }, function () {
