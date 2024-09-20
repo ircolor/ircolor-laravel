@@ -22,9 +22,5 @@ class ApiServiceProvider extends ServiceProvider
     public function boot(): void
     {
         $this->app->bind('apiResponseFacade', ApiResponseBuilder::class);
-
-        $this->app->bind('RegisterUserResource', function ($resource, $params) {
-            return new RegisterUserResource($params['data']);
-        });
     }
 }
