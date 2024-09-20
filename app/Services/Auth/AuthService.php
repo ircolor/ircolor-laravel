@@ -18,6 +18,7 @@ class AuthService
             "name" => $userInputs['name'],
             'password' => $userInputs['password']
         ]);
+        $newUser['token'] = $newUser->createToken('api')->plainTextToken;
         return [
             "success" => true,
             "message" => __("messages.registered_successfully"),
