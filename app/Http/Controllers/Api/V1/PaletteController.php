@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\V1;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\StorePaletteRequest;
 use App\Http\Requests\Api\UpdatePaletteRequest;
+use App\Http\Resources\PaletteIndexResource;
 use App\Http\Resources\StorePaletteResource;
 use App\Models\Palette;
 use App\Services\ApiResponse\ApiResponseFacade;
@@ -15,6 +16,16 @@ class PaletteController extends Controller
 {
     public function __construct(private PaletteService $paletteService)
     {
+    }
+
+    public function index()
+    {
+        $palettes = Palette::with('user')->paginate(10);
+        return ApiResponseFacade::withSuccess(true)
+            ->withStatus(200)
+            ->withData(new PaletteIndexResource($palettes))
+            ->withMessage('')
+            ->build()->response();
     }
 
     public function store(StorePaletteRequest $request)
@@ -32,7 +43,7 @@ class PaletteController extends Controller
     {
         Gate::authorize('update', $palette);
         $updatedPalette = $this->paletteService->update($palette, $request->input('colors'));
-        
+
         return ApiResponseFacade::withSuccess($updatedPalette->isSuccess())
             ->withStatus(200)
             ->withMessage($updatedPalette->getMessage())

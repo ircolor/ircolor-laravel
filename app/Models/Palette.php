@@ -14,4 +14,9 @@ class Palette extends Model
     protected $casts = [
         'colors' => 'array',
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }
