@@ -25,4 +25,13 @@ class PaletteService
             ->setData($newPalette)
             ->build();
     }
+
+    public function update(Palette $palette, array $colors)
+    {
+        $palette->update($colors);
+
+        return $this->authResultBuilder->setSuccess(true)
+            ->setMessage(__('messages.palette_updated_successfully'))
+            ->build();
+    }
 }

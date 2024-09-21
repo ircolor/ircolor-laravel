@@ -4,9 +4,12 @@ namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\StorePaletteRequest;
+use App\Http\Requests\Api\UpdatePaletteRequest;
 use App\Http\Resources\StorePaletteResource;
+use App\Models\Palette;
 use App\Services\ApiResponse\ApiResponseFacade;
 use App\Services\Palette\PaletteService;
+use Illuminate\Support\Facades\Gate;
 
 class PaletteController extends Controller
 {
@@ -22,6 +25,17 @@ class PaletteController extends Controller
             ->withMessage($newPalette->getMessage())
             ->withData(new StorePaletteResource($newPalette->getData()))
             ->withStatus(200)
+            ->build()->response();
+    }
+
+    public function update(UpdatePaletteRequest $request, Palette $palette)
+    {
+        Gate::authorize('update', $palette);
+        $updatedPalette = $this->paletteService->update($palette, $request->input('colors'));
+        
+        return ApiResponseFacade::withSuccess($updatedPalette->isSuccess())
+            ->withStatus(200)
+            ->withMessage($updatedPalette->getMessage())
             ->build()->response();
     }
 }
