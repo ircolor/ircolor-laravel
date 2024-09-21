@@ -9,7 +9,6 @@ use App\Http\Resources\RegisterUserResource;
 use App\Services\ApiResponse\ApiResponseFacade;
 use App\Services\Auth\AuthService;
 use OpenApi\Annotations as OA;
-use function auth;
 
 class AuthController extends Controller
 {
@@ -143,15 +142,16 @@ class AuthController extends Controller
     {
         $registrationResult = $this->authService->register($request->input('name'), $request->input('email'), $request->input('password'));
 
-        if (!$registrationResult['success']) {
-            return ApiResponseFacade::withSuccess($registrationResult['success'])
-                ->withMessage($registrationResult['message'])
+        if (!$registrationResult->isSuccess()) {
+            return ApiResponseFacade::withSuccess($registrationResult->isSuccess())
+                ->withMessage($registrationResult->getMessage())
                 ->withStatus(500)
                 ->build()->response();
         }
-        return ApiResponseFacade::withSuccess($registrationResult['success'])
-            ->withMessage($registrationResult['message'])
-            ->withData(new RegisterUserResource($registrationResult['data']))
+
+        return ApiResponseFacade::withSuccess($registrationResult->isSuccess())
+            ->withMessage($registrationResult->getMessage())
+            ->withData(new RegisterUserResource($registrationResult->getData()))
             ->withStatus(200)
             ->build()->response();
     }
@@ -213,18 +213,16 @@ class AuthController extends Controller
     {
         $loginResult = $this->authService->login($request->input('email'), $request->input('password'));
 
-        if (!$loginResult['success']) {
-            return ApiResponseFacade::withSuccess($loginResult['success'])
-                ->withMessage($loginResult['message'])
+        if (!$loginResult->isSuccess()) {
+            return ApiResponseFacade::withSuccess($loginResult->isSuccess())
+                ->withMessage($loginResult->getMessage())
                 ->withStatus(401)
                 ->build()->response();
         }
-        return ApiResponseFacade::withSuccess($loginResult['success'])
-            ->withMessage($loginResult['message'])
-            ->withData([
-                "token" => auth()->user()->createToken($request->userAgent())->plainTextToken,
-            ])->withStatus(200)
+        return ApiResponseFacade::withSuccess($loginResult->isSuccess())
+            ->withMessage($loginResult->getMessage())
+            ->withData($loginResult->getData())
+            ->withStatus(200)
             ->build()->response();
-
     }
 }

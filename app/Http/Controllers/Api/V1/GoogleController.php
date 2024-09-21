@@ -22,16 +22,16 @@ class GoogleController extends Controller
     {
         $loginResult = $this->authService->loginWithGoogle();
 
-        if (!$loginResult['success']) {
-            return ApiResponseFacade::withSuccess($loginResult['success'])
-                ->withMessage($loginResult['message'])
+        if (!$loginResult->isSuccess()) {
+            return ApiResponseFacade::withSuccess($loginResult->isSuccess())
+                ->withMessage($loginResult->getMessage())
                 ->withStatus(500)
                 ->build()->response();
         }
-        return ApiResponseFacade::withSuccess($loginResult['success'])
-            ->withMessage($loginResult['message'])
+        return ApiResponseFacade::withSuccess($loginResult->isSuccess())
+            ->withMessage($loginResult->getMessage())
             ->withStatus(200)
-            ->withData($loginResult['data'])
+            ->withData($loginResult->getData())
             ->build()->response();
     }
 }
