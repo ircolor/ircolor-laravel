@@ -14,4 +14,9 @@ class PalettePolicy
         return $user->id == $palette->user_id;
     }
 
+    public function destroy(User $user, Palette $palette): bool
+    {
+        return $user->id == $palette->user_id;
+    }
+
 }

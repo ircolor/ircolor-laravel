@@ -49,4 +49,15 @@ class PaletteController extends Controller
             ->withMessage($updatedPalette->getMessage())
             ->build()->response();
     }
+
+    public function destroy(Palette $palette)
+    {
+        Gate::authorize('destroy', $palette);
+        $palette->delete();
+
+        return ApiResponseFacade::withSuccess(true)
+            ->withStatus(200)
+            ->withMessage(__('messages.palette_deleted_successfully'))
+            ->build()->response();
+    }
 }

@@ -5,5 +5,6 @@ return [
     "registered_successfully" => "کاربر با موفقیت ثبت نام شد",
     "palette_created_successfully" => "پالت با موفقیت ساخته شد",
     "palette_updated_successfully" => "پالت با موفقیت آپدیت شد",
+    "palette_deleted_successfully" => "پالت با موفقیت حذف شد",
     "unauthorized_access" => "دسترسی غیر مجاز"
 ];
