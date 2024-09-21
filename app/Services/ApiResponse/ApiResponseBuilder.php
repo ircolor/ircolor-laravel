@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services\ApiResponseService;
+namespace App\Services\ApiResponse;
 
 class ApiResponseBuilder
 {
@@ -33,12 +33,6 @@ class ApiResponseBuilder
     public function withSuccess(bool $state): ApiResponseBuilder
     {
         $this->response->setSuccess($state);
-        return $this;
-    }
-
-    public function withAppends(array $appends): ApiResponseBuilder
-    {
-        $this->response->setAppends($appends);
         return $this;
     }
 

@@ -2,7 +2,8 @@
 
 namespace App\Providers;
 
-use App\Services\ApiResponseService\ApiResponseBuilder;
+use App\Http\Resources\RegisterUserResource;
+use App\Services\ApiResponse\ApiResponseBuilder;
 use Illuminate\Support\ServiceProvider;
 
 class ApiServiceProvider extends ServiceProvider
@@ -20,8 +21,6 @@ class ApiServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        $this->app->bind('apiResponseFacade', function () {
-            return new ApiResponseBuilder();
-        });
+        $this->app->bind('apiResponseFacade', ApiResponseBuilder::class);
     }
 }

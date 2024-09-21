@@ -10,14 +10,6 @@ use Illuminate\Http\Exceptions\HttpResponseException;
 class ApiBaseRequest extends FormRequest
 {
     /**
-     * Determine if the user is authorized to make this request.
-     */
-    public function authorize(): bool
-    {
-        return false;
-    }
-
-    /**
      * Get the validation rules that apply to the request.
      *
      * @return array<string, ValidationRule|array<mixed>|string>
@@ -32,7 +24,7 @@ class ApiBaseRequest extends FormRequest
     public function failedValidation(Validator $validator)
     {
         throw new HttpResponseException(response()->json([
-            'ok' => false,
+            'success' => false,
             'message' => 'Validation Error',
             'data' => $validator->errors()
         ], 422));
