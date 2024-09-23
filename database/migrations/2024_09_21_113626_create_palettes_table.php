@@ -15,6 +15,7 @@ return new class extends Migration {
             $table->json('colors');
             $table->foreignId('user_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
             $table->integer('views')->default(0);
+            $table->softDeletes();
             $table->timestamps();
         });
     }
