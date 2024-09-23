@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\StorePaletteRequest;
 use App\Http\Requests\Api\UpdatePaletteRequest;
 use App\Http\Resources\PaletteIndexResource;
-use App\Http\Resources\StorePaletteResource;
 use App\Models\Palette;
 use App\Repositories\Palette\PaletteRepository;
 use App\Services\ApiResponse\ApiResponseFacade;
@@ -32,7 +31,6 @@ class PaletteController extends Controller
 
         return ApiResponseFacade::withSuccess($newPalette->isSuccess())
             ->withMessage($newPalette->getMessage())
-            ->withData(new StorePaletteResource($newPalette->getData()))
             ->withStatus(201)
             ->build()->response();
     }
