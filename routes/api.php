@@ -13,7 +13,6 @@ Route::group(['prefix' => '/v1'], function () {
         ->only(['store', 'update', 'destroy'])
         ->middleware('auth:sanctum');
 
-    Route::apiResource('palettes', PaletteController::class)
-        ->except(['store', 'update', 'destroy']);
+    Route::apiResource('palettes', PaletteController::class)->only(['index']);
 
 });
