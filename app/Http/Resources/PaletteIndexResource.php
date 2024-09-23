@@ -19,7 +19,7 @@ class PaletteIndexResource extends ResourceCollection
                 return [
                     'id' => $palette->id,
                     'colors' => $palette->colors,
-                    'user' => $palette->user->name
+                    'user' => new UserResource($palette->user)
                 ];
             }),
             'meta' => [
