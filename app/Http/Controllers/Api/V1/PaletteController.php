@@ -41,7 +41,7 @@ class PaletteController extends Controller
 
     public function update(UpdatePaletteRequest $request, Palette $palette)
     {
-        Gate::authorize('update', $palette);
+        $this->authorize('update', $palette);
         $updatedPalette = $this->paletteService->update($palette, $request->input('colors'));
 
         return ApiResponseFacade::withSuccess($updatedPalette->isSuccess())
@@ -52,7 +52,7 @@ class PaletteController extends Controller
 
     public function destroy(Palette $palette)
     {
-        Gate::authorize('destroy', $palette);
+        $this->authorize('destroy', $palette);
         $palette->delete();
 
         return ApiResponseFacade::withSuccess(true)
