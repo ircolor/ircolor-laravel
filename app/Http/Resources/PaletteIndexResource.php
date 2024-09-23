@@ -18,7 +18,7 @@ class PaletteIndexResource extends ResourceCollection
             'palettes' => $this->collection->transform(function ($palette) {
                 return [
                     'id' => $palette->id,
-                    'colors' => $palette->colors,
+                    'colors' => ColorResource::collection($palette->colors),
                     'user' => new UserResource($palette->user)
                 ];
             }),
