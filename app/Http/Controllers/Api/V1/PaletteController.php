@@ -8,13 +8,12 @@ use App\Http\Requests\Api\UpdatePaletteRequest;
 use App\Http\Resources\PaletteIndexResource;
 use App\Http\Resources\StorePaletteResource;
 use App\Models\Palette;
+use App\Repositories\Palette\PaletteRepository;
 use App\Services\ApiResponse\ApiResponseFacade;
-use App\Services\Palette\PaletteService;
-use Illuminate\Support\Facades\Gate;
 
 class PaletteController extends Controller
 {
-    public function __construct(private PaletteService $paletteService)
+    public function __construct(private PaletteRepository $paletteRepository)
     {
     }
 
@@ -29,7 +28,7 @@ class PaletteController extends Controller
 
     public function store(StorePaletteRequest $request)
     {
-        $newPalette = $this->paletteService->store($request->input('colors'));
+        $newPalette = $this->paletteRepository->store($request->input('colors'));
 
         return ApiResponseFacade::withSuccess($newPalette->isSuccess())
             ->withMessage($newPalette->getMessage())
@@ -41,7 +40,7 @@ class PaletteController extends Controller
     public function update(UpdatePaletteRequest $request, Palette $palette)
     {
         $this->authorize('update', $palette);
-        $updatedPalette = $this->paletteService->update($palette, $request->input('colors'));
+        $updatedPalette = $this->paletteRepository->update($palette, $request->input('colors'));
 
         return ApiResponseFacade::withSuccess($updatedPalette->isSuccess())
             ->withMessage($updatedPalette->getMessage())

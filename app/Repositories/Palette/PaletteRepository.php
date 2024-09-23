@@ -1,14 +1,13 @@
 <?php
 
-namespace App\Services\Palette;
+namespace App\Repositories\Palette;
 
 use App\Models\Palette;
 use App\Services\AuthResult\AuthResultBuilder;
 use Illuminate\Support\Facades\Auth;
 
-class PaletteService
+class PaletteRepository
 {
-
     public function __construct(private AuthResultBuilder $authResultBuilder)
     {
     }
@@ -28,10 +27,11 @@ class PaletteService
 
     public function update(Palette $palette, array $colors)
     {
-        $palette->update($colors);
+        $palette->update(['colors' => $colors]);
 
         return $this->authResultBuilder->setSuccess(true)
             ->setMessage(__('messages.palette_updated_successfully'))
             ->build();
     }
+
 }
