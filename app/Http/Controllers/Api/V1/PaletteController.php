@@ -22,7 +22,6 @@ class PaletteController extends Controller
     {
         $palettes = Palette::with('user')->paginate(10);
         return ApiResponseFacade::withSuccess(true)
-            ->withStatus(200)
             ->withData(new PaletteIndexResource($palettes))
             ->withMessage('')
             ->build()->response();
@@ -35,7 +34,7 @@ class PaletteController extends Controller
         return ApiResponseFacade::withSuccess($newPalette->isSuccess())
             ->withMessage($newPalette->getMessage())
             ->withData(new StorePaletteResource($newPalette->getData()))
-            ->withStatus(200)
+            ->withStatus(201)
             ->build()->response();
     }
 
@@ -45,7 +44,6 @@ class PaletteController extends Controller
         $updatedPalette = $this->paletteService->update($palette, $request->input('colors'));
 
         return ApiResponseFacade::withSuccess($updatedPalette->isSuccess())
-            ->withStatus(200)
             ->withMessage($updatedPalette->getMessage())
             ->build()->response();
     }
@@ -56,7 +54,7 @@ class PaletteController extends Controller
         $palette->delete();
 
         return ApiResponseFacade::withSuccess(true)
-            ->withStatus(200)
+            ->withStatus(204)
             ->withMessage(__('messages.palette_deleted_successfully'))
             ->build()->response();
     }
