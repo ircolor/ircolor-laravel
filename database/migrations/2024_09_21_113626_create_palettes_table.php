@@ -13,9 +13,9 @@ return new class extends Migration {
         Schema::create('palettes', function (Blueprint $table) {
             $table->id();
             $table->json('colors');
-            $table->foreignId('user_id')->constrained()->onUpdate('cascade')->nullOnDelete();
-            $table->softDeletes();
+            $table->foreignId('user_id')->constrained()-cascadeOnUpdate()->nullOnDelete();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
