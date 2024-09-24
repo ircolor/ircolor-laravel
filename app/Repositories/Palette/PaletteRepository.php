@@ -8,15 +8,13 @@ use Illuminate\Support\Facades\Auth;
 
 class PaletteRepository
 {
-    public function __construct(private AuthResultBuilder $authResultBuilder)
-    {
-    }
+    public function __construct(private AuthResultBuilder $authResultBuilder) {}
 
     public function store(array $palettes)
     {
         $newPalette = Palette::create([
             'colors' => $palettes,
-            'user_id' => Auth::guard('sanctum')->id()
+            'user_id' => Auth::guard('sanctum')->id(),
         ]);
 
         return $this->authResultBuilder->setSuccess(true)
@@ -33,5 +31,4 @@ class PaletteRepository
             ->setMessage(__('messages.updated_successfully'))
             ->build();
     }
-
 }

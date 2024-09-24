@@ -13,33 +13,39 @@ use OpenApi\Annotations as OA;
 
 class PaletteController extends Controller
 {
-    public function __construct(private PaletteRepository $paletteRepository)
-    {
-    }
+    public function __construct(private PaletteRepository $paletteRepository) {}
+
     /**
      * @OA\Get(
      *     path="/v1/palettes",
      *     summary="Get list of palettes",
      *     description="Get list of palettes",
      *     tags={"Palettes"},
+     *
      *     @OA\Parameter(
      *         name="page",
      *         in="query",
      *         description="Page number",
      *         required=false,
+     *
      *         @OA\Schema(type="integer")
      *     ),
+     *
      *     @OA\Response(
      *         response=200,
      *         description="Successful response",
+     *
      *         @OA\JsonContent(
+     *
      *             @OA\Property(
      *                 property="data",
      *                 type="object",
      *                 @OA\Property(
      *                     property="palettes",
      *                     type="array",
+     *
      *                     @OA\Items(
+     *
      *                         @OA\Property(
      *                             property="id",
      *                             type="integer",
@@ -48,7 +54,9 @@ class PaletteController extends Controller
      *                         @OA\Property(
      *                             property="colors",
      *                             type="array",
+     *
      *                             @OA\Items(
+     *
      *                                 @OA\Property(
      *                                     property="hex",
      *                                     type="string",
@@ -103,7 +111,9 @@ class PaletteController extends Controller
      *                     @OA\Property(
      *                         property="links",
      *                         type="array",
+     *
      *                         @OA\Items(
+     *
      *                             @OA\Property(
      *                                 property="url",
      *                                 type="string",
@@ -159,7 +169,6 @@ class PaletteController extends Controller
      *     )
      * )
      */
-
     public function index()
     {
         return PaletteResource::collection(Palette::with('user')->paginate());
@@ -172,14 +181,19 @@ class PaletteController extends Controller
      *     summary="Create new palette",
      *     description="Create new palette",
      *     security={{"sanctum":{}}},
+     *
      *     @OA\RequestBody(
      *         required=true,
+     *
      *         @OA\MediaType(
      *             mediaType="multipart/form-data",
+     *
      *             @OA\Schema(
+     *
      *                 @OA\Property(
      *                     property="colors[]",
      *                     type="array",
+     *
      *                     @OA\Items(
      *                         type="string",
      *                         example="#abc123"
@@ -194,10 +208,13 @@ class PaletteController extends Controller
      *             }
      *         )
      *     ),
+     *
      *     @OA\Response(
      *         response=200,
      *         description="Successful response",
+     *
      *         @OA\JsonContent(
+     *
      *             @OA\Property(
      *                 property="success",
      *                 type="boolean",
@@ -215,10 +232,13 @@ class PaletteController extends Controller
      *             )
      *         )
      *     ),
+     *
      *     @OA\Response(
      *         response=422,
      *         description="Validation Error",
+     *
      *         @OA\JsonContent(
+     *
      *             @OA\Property(
      *                 property="success",
      *                 type="boolean",
@@ -235,6 +255,7 @@ class PaletteController extends Controller
      *                 @OA\Property(
      *                     property="colors",
      *                     type="array",
+     *
      *                     @OA\Items(
      *                         type="string",
      *                         example="تکمیل گزینه colors الزامی است"
@@ -243,10 +264,12 @@ class PaletteController extends Controller
      *             )
      *         )
      *     ),
+     *
      *     @OA\Parameter(
      *         name="Accept",
      *         in="header",
      *         required=true,
+     *
      *         @OA\Schema(
      *             type="string",
      *             default="application/json"
@@ -271,17 +294,22 @@ class PaletteController extends Controller
      *     summary="update palette",
      *     description="update new palette",
      *     security={{"sanctum":{}}},
+     *
      *     @OA\Parameter(
      *         name="palette",
      *         in="path",
      *         required=true,
      *         example=1,
      *     ),
+     *
      *     @OA\RequestBody(
      *         required=true,
+     *
      *         @OA\MediaType(
      *             mediaType="multipart/form-data",
+     *
      *             @OA\Schema(
+     *
      *                 @OA\Property(
      *                     property="_method",
      *                     type="string",
@@ -290,6 +318,7 @@ class PaletteController extends Controller
      *                 @OA\Property(
      *                     property="colors[]",
      *                     type="array",
+     *
      *                     @OA\Items(
      *                         type="string",
      *                         example="#abc123"
@@ -304,10 +333,13 @@ class PaletteController extends Controller
      *             }
      *         )
      *     ),
+     *
      *     @OA\Response(
      *         response=200,
      *         description="Successful response",
+     *
      *         @OA\JsonContent(
+     *
      *             @OA\Property(
      *                 property="success",
      *                 type="boolean",
@@ -325,10 +357,13 @@ class PaletteController extends Controller
      *             )
      *         )
      *     ),
+     *
      *     @OA\Response(
      *         response=422,
      *         description="Validation Error",
+     *
      *         @OA\JsonContent(
+     *
      *             @OA\Property(
      *                 property="success",
      *                 type="boolean",
@@ -345,6 +380,7 @@ class PaletteController extends Controller
      *                 @OA\Property(
      *                     property="colors",
      *                     type="array",
+     *
      *                     @OA\Items(
      *                         type="string",
      *                         example="تکمیل گزینه colors الزامی است"
@@ -353,10 +389,12 @@ class PaletteController extends Controller
      *             )
      *         )
      *     ),
+     *
      *     @OA\Parameter(
      *         name="Accept",
      *         in="header",
      *         required=true,
+     *
      *         @OA\Schema(
      *             type="string",
      *             default="application/json"
@@ -381,20 +419,24 @@ class PaletteController extends Controller
      *     summary="delete palette",
      *     description="delete palette",
      *     security={{"sanctum":{}}},
+     *
      *     @OA\Parameter(
      *         name="palette",
      *         in="path",
      *         required=true,
      *         example=1,
      *     ),
+     *
      *     @OA\Response(
      *         response=204,
      *         description="successfully deleted"
      *     ),
+     *
      *     @OA\Parameter(
      *         name="Accept",
      *         in="header",
      *         required=true,
+     *
      *         @OA\Schema(
      *             type="string",
      *             default="application/json"
@@ -419,16 +461,20 @@ class PaletteController extends Controller
      *     path="/v1/palettes/{palette}",
      *     summary="Show palette",
      *     description="Show palette",
+     *
      *     @OA\Parameter(
      *         name="palette",
      *         in="path",
      *         required=true,
      *         example=1,
      *     ),
+     *
      *     @OA\Response(
      *         response=200,
      *         description="Successful response",
+     *
      *         @OA\JsonContent(
+     *
      *             @OA\Property(
      *                 property="data",
      *                 type="object",
@@ -443,6 +489,7 @@ class PaletteController extends Controller
      *                     @OA\Property(
      *                         property="colors",
      *                         type="array",
+     *
      *                         @OA\Items(
      *                             type="string",
      *                             example="#abe343",
@@ -452,6 +499,7 @@ class PaletteController extends Controller
      *                             example="#abe345",
      *                         ),
      *                     ),
+     *
      *                     @OA\Property(
      *                         property="user_id",
      *                         type="integer",
@@ -478,10 +526,12 @@ class PaletteController extends Controller
      *             ),
      *         ),
      *     ),
+     *
      *     @OA\Parameter(
      *         name="Accept",
      *         in="header",
      *         required=true,
+     *
      *         @OA\Schema(
      *             type="string",
      *             default="application/json",
@@ -489,7 +539,6 @@ class PaletteController extends Controller
      *     ),
      * )
      */
-
     public function show(Palette $palette)
     {
         views($palette)->record();

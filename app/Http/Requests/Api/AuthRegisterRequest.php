@@ -16,16 +16,16 @@ class AuthRegisterRequest extends ApiBaseRequest
     public function rules(): array
     {
         return [
-            "name" => "required|string|min:5|max:255",
-            "email" => "required|email|unique:users,email",
-            "password" => "required|min:6|max:255|confirmed"
+            'name' => 'required|string|min:5|max:255',
+            'email' => 'required|email|unique:users,email',
+            'password' => 'required|min:6|max:255|confirmed',
         ];
     }
 
     protected function passedValidation()
     {
         $this->merge([
-            'password' => Hash::make($this->password)
+            'password' => Hash::make($this->password),
         ]);
     }
 }

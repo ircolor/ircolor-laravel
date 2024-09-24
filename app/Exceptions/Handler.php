@@ -32,10 +32,9 @@ class Handler extends ExceptionHandler
         $this->renderable(function (AccessDeniedHttpException $e, Request $request) {
             if ($request->is('api/*')) {
                 return response()->json([
-                    "message" => __("messages.unauthorized_access")
+                    'message' => __('messages.unauthorized_access'),
                 ], 401);
             }
         });
     }
-
 }

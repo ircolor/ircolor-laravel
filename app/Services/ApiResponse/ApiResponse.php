@@ -5,8 +5,11 @@ namespace App\Services\ApiResponse;
 class ApiResponse
 {
     private string $message;
+
     private mixed $data = null;
+
     private int $status = 200;
+
     private bool $success = true;
 
     public function setMessage(string $message)
@@ -32,9 +35,9 @@ class ApiResponse
     public function response()
     {
         return response()->json([
-           "success" => $this->success,
-            "message" => $this->message,
-            "data" => $this->data
+            'success' => $this->success,
+            'message' => $this->message,
+            'data' => $this->data,
         ], $this->status);
     }
 }

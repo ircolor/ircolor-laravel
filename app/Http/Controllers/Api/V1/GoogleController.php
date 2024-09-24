@@ -9,9 +9,7 @@ use Laravel\Socialite\Facades\Socialite;
 
 class GoogleController extends Controller
 {
-    public function __construct(private AuthService $authService)
-    {
-    }
+    public function __construct(private AuthService $authService) {}
 
     public function redirectToGoogle()
     {
@@ -22,12 +20,13 @@ class GoogleController extends Controller
     {
         $loginResult = $this->authService->loginWithGoogle();
 
-        if (!$loginResult->isSuccess()) {
+        if (! $loginResult->isSuccess()) {
             return ApiResponseFacade::withSuccess($loginResult->isSuccess())
                 ->withMessage($loginResult->getMessage())
                 ->withStatus(500)
                 ->build()->response();
         }
+
         return ApiResponseFacade::withSuccess($loginResult->isSuccess())
             ->withMessage($loginResult->getMessage())
             ->withStatus(200)

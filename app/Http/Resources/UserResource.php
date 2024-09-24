@@ -18,8 +18,8 @@ class UserResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-          "name" => $this->resource->name,
-          "email" => $this->resource->email
+            'name' => $this->resource->name,
+            'email' => $this->resource->email,
         ];
     }
 }

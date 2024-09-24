@@ -12,10 +12,7 @@ use OpenApi\Annotations as OA;
 
 class AuthController extends Controller
 {
-
-    public function __construct(private AuthService $authService)
-    {
-    }
+    public function __construct(private AuthService $authService) {}
 
     /**
      * @OA\Post(
@@ -23,11 +20,15 @@ class AuthController extends Controller
      *     path="/v1/auth/register",
      *     summary="Register user",
      *     description="Register a new user",
+     *
      *     @OA\RequestBody(
      *         required=true,
+     *
      *         @OA\MediaType(
      *             mediaType="multipart/form-data",
+     *
      *             @OA\Schema(
+     *
      *                 @OA\Property(
      *                     property="name",
      *                     type="string",
@@ -57,10 +58,13 @@ class AuthController extends Controller
      *             )
      *         )
      *     ),
+     *
      *     @OA\Response(
      *         response=200,
      *         description="User has been registered successfully",
+     *
      *         @OA\JsonContent(
+     *
      *             @OA\Property(
      *                 property="success",
      *                 type="boolean",
@@ -99,10 +103,13 @@ class AuthController extends Controller
      *             )
      *         )
      *     ),
+     *
      *     @OA\Response(
      *         response=422,
      *         description="Validation Error",
+     *
      *         @OA\JsonContent(
+     *
      *             @OA\Property(
      *                 property="success",
      *                 type="boolean",
@@ -119,14 +126,17 @@ class AuthController extends Controller
      *                 @OA\Property(
      *                     property="email",
      *                     type="array",
+     *
      *                     @OA\Items(
      *                         type="string",
      *                         example="تکمیل گزینه ایمیل الزامی است"
      *                     )
      *                 ),
+     *
      *                 @OA\Property(
      *                     property="password",
      *                     type="array",
+     *
      *                     @OA\Items(
      *                         type="string",
      *                         example="تکمیل گزینه ایمیل الزامی است"
@@ -137,12 +147,11 @@ class AuthController extends Controller
      *     )
      * )
      */
-
     public function register(AuthRegisterRequest $request)
     {
         $registrationResult = $this->authService->register($request->input('name'), $request->input('email'), $request->input('password'));
 
-        if (!$registrationResult->isSuccess()) {
+        if (! $registrationResult->isSuccess()) {
             return ApiResponseFacade::withSuccess($registrationResult->isSuccess())
                 ->withMessage($registrationResult->getMessage())
                 ->withStatus(500)
@@ -162,11 +171,15 @@ class AuthController extends Controller
      *     path="/v1/auth/login",
      *     summary="Login user",
      *     description="Login new user",
+     *
      *     @OA\RequestBody(
      *         required=true,
+     *
      *         @OA\MediaType(
      *             mediaType="multipart/form-data",
+     *
      *             @OA\Schema(
+     *
      *                 @OA\Property(
      *                     property="email",
      *                     type="string",
@@ -183,10 +196,13 @@ class AuthController extends Controller
      *             )
      *         )
      *     ),
+     *
      *     @OA\Response(
      *         response=200,
      *         description="User has been login successfully",
+     *
      *         @OA\JsonContent(
+     *
      *             @OA\Property(
      *                 property="success",
      *                 type="boolean",
@@ -213,12 +229,13 @@ class AuthController extends Controller
     {
         $loginResult = $this->authService->login($request->input('email'), $request->input('password'));
 
-        if (!$loginResult->isSuccess()) {
+        if (! $loginResult->isSuccess()) {
             return ApiResponseFacade::withSuccess($loginResult->isSuccess())
                 ->withMessage($loginResult->getMessage())
                 ->withStatus(401)
                 ->build()->response();
         }
+
         return ApiResponseFacade::withSuccess($loginResult->isSuccess())
             ->withMessage($loginResult->getMessage())
             ->withData($loginResult->getData())

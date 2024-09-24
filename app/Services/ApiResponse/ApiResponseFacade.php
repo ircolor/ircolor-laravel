@@ -17,5 +17,4 @@ class ApiResponseFacade extends Facade
     {
         return 'apiResponseFacade';
     }
-
 }

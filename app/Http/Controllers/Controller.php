@@ -13,6 +13,7 @@ use OpenApi\Annotations as OA;
  *     description="IRColor API Documentation",
  *     version="1.0.0"
  * ),
+ *
  * @OA\Tag(
  *     name="Palettes",
  *     name="Authentication"

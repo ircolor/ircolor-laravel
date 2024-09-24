@@ -20,7 +20,7 @@ class PaletteResource extends JsonResource
         return [
             'id' => $this->resource->id,
             'colors' => ColorResource::collection($this->resource->colors),
-            'user' => new UserResource($this->resource->user)
+            'user' => new UserResource($this->resource->user),
         ];
     }
 }

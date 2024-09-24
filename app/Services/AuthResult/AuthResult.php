@@ -4,9 +4,7 @@ namespace App\Services\AuthResult;
 
 class AuthResult
 {
-    public function __construct(private bool $success, private string $message, private mixed $data = null)
-    {
-    }
+    public function __construct(private bool $success, private string $message, private mixed $data = null) {}
 
     public function isSuccess(): bool
     {

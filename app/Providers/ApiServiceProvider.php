@@ -2,7 +2,6 @@
 
 namespace App\Providers;
 
-use App\Http\Resources\RegisterUserResource;
 use App\Services\ApiResponse\ApiResponseBuilder;
 use Illuminate\Support\ServiceProvider;
 
@@ -11,10 +10,7 @@ class ApiServiceProvider extends ServiceProvider
     /**
      * Register services.
      */
-    public function register(): void
-    {
-
-    }
+    public function register(): void {}
 
     /**
      * Bootstrap services.

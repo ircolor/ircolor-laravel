@@ -20,7 +20,7 @@ class PaletteFactory extends Factory
     {
         return [
             'user_id' => User::inRandomOrder()->first()->id,
-            'colors' => Collection::times(5)->map(fn() => $this->faker->hexColor())
+            'colors' => Collection::times(5)->map(fn () => $this->faker->hexColor()),
         ];
     }
 }

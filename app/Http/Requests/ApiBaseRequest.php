@@ -26,7 +26,7 @@ class ApiBaseRequest extends FormRequest
         throw new HttpResponseException(response()->json([
             'success' => false,
             'message' => 'Validation Error',
-            'data' => $validator->errors()
+            'data' => $validator->errors(),
         ], 422));
     }
 }

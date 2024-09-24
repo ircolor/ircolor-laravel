@@ -15,7 +15,8 @@ class Palette extends Model implements Viewable
 
     protected $fillable = ['colors', 'user_id'];
 
-    protected $casts = ['colors' => 'array',];
+    protected $casts = ['colors' => 'array'];
+
     protected $appends = ['views'];
 
     public function user(): BelongsTo
@@ -26,7 +27,7 @@ class Palette extends Model implements Viewable
     protected function viewsCount(): Attribute
     {
         return Attribute::make(
-            get: fn($value, array $attributes) => views($this)->unique()->count(),
+            get: fn ($value, array $attributes) => views($this)->unique()->count(),
         );
     }
 }
