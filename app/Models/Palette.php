@@ -23,8 +23,10 @@ class Palette extends Model implements Viewable
         return $this->belongsTo(User::class);
     }
 
-    public function getViewsAttribute()
+    protected function viewsCount(): Attribute
     {
-        return views($this)->unique()->count();
+        return Attribute::make(
+            get: fn($value, array $attributes) => views($this)->unique()->count(),
+        );
     }
 }
