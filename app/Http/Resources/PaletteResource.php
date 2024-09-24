@@ -5,6 +5,9 @@ namespace App\Http\Resources;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
+/**
+ * @property \App\Models\Palette $resource
+ */
 class PaletteResource extends JsonResource
 {
     /**
@@ -15,9 +18,9 @@ class PaletteResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'id' => $this->id,
-            'colors' => ColorResource::collection($this->colors),
-            'user' => new UserResource($this->user)
+            'id' => $this->resource->id,
+            'colors' => ColorResource::collection($this->resource->colors),
+            'user' => new UserResource($this->resource->user)
         ];
     }
 }

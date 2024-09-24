@@ -34,6 +34,9 @@ class AuthService
     public function loginWithGoogle()
     {
         return rescue(function () {
+            /**
+             * @var \Laravel\Socialite\Two\User $user
+             */
             $user = Socialite::driver('google')->user();
             $finduser = User::where('google_id', $user->id)->orWhere('email', $user->email)->first();
 
@@ -69,7 +72,8 @@ class AuthService
     {
         if (!Auth::attempt(['email' => $email, 'password' => $password])) {
 
-            return $this->authResultBuilder->setMessage(false)
+            return $this->authResultBuilder
+                ->setSuccess(false)
                 ->setMessage(__("auth.wrong_email_or_password"))
                 ->build();
         }

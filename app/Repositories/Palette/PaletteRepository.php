@@ -16,7 +16,7 @@ class PaletteRepository
     {
         $newPalette = Palette::create([
             'colors' => $palettes,
-            'user_id' => Auth::guard('sanctum')->user()->id
+            'user_id' => Auth::guard('sanctum')->id()
         ]);
 
         return $this->authResultBuilder->setSuccess(true)

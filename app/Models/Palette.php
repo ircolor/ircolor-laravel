@@ -4,8 +4,10 @@ namespace App\Models;
 
 use CyrildeWit\EloquentViewable\Contracts\Viewable;
 use CyrildeWit\EloquentViewable\InteractsWithViews;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Palette extends Model implements Viewable
 {
@@ -16,7 +18,7 @@ class Palette extends Model implements Viewable
     protected $casts = ['colors' => 'array',];
     protected $appends = ['views'];
 
-    public function user()
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
