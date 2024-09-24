@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\V1;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\StorePaletteRequest;
 use App\Http\Requests\Api\UpdatePaletteRequest;
+use App\Http\Resources\ColorResource;
 use App\Http\Resources\PaletteIndexResource;
 use App\Models\Palette;
 use App\Repositories\Palette\PaletteRepository;
@@ -52,6 +53,16 @@ class PaletteController extends Controller
 
         return ApiResponseFacade::withSuccess(true)
             ->withStatus(204)
+            ->withMessage(__('messages.palette_deleted_successfully'))
+            ->build()->response();
+    }
+
+    public function show(Palette $palette)
+    {
+        views($palette)->record();
+
+        return ApiResponseFacade::withSuccess(true)
+            ->withData(new ColorResource($palette))
             ->withMessage(__('messages.palette_deleted_successfully'))
             ->build()->response();
     }
