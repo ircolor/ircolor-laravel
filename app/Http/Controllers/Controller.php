@@ -14,8 +14,9 @@ use OpenApi\Annotations as OA;
  *     version="1.0.0"
  * ),
  * @OA\Tag(
+ *     name="Palettes",
  *     name="Authentication"
- * )
+ * ),
  */
 class Controller extends BaseController
 {
