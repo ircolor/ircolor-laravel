@@ -5,8 +5,7 @@ namespace App\Http\Controllers\Api\V1;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\StorePaletteRequest;
 use App\Http\Requests\Api\UpdatePaletteRequest;
-use App\Http\Resources\ColorResource;
-use App\Http\Resources\PaletteIndexResource;
+use App\Http\Resources\PaletteResource;
 use App\Models\Palette;
 use App\Repositories\Palette\PaletteRepository;
 use App\Services\ApiResponse\ApiResponseFacade;
@@ -34,16 +33,6 @@ class PaletteController extends Controller
      *         response=200,
      *         description="Successful response",
      *         @OA\JsonContent(
-     *             @OA\Property(
-     *                 property="success",
-     *                 type="boolean",
-     *                 example=true
-     *             ),
-     *             @OA\Property(
-     *                 property="message",
-     *                 type="string",
-     *                 example=""
-     *             ),
      *             @OA\Property(
      *                 property="data",
      *                 type="object",
@@ -173,11 +162,7 @@ class PaletteController extends Controller
 
     public function index()
     {
-        $palettes = Palette::with('user')->paginate(10);
-        return ApiResponseFacade::withSuccess(true)
-            ->withData(new PaletteIndexResource($palettes))
-            ->withMessage('')
-            ->build()->response();
+        return PaletteResource::collection(Palette::with('user')->paginate());
     }
 
     /**
@@ -445,16 +430,6 @@ class PaletteController extends Controller
      *         description="Successful response",
      *         @OA\JsonContent(
      *             @OA\Property(
-     *                 property="success",
-     *                 type="boolean",
-     *                 example=true,
-     *             ),
-     *             @OA\Property(
-     *                 property="message",
-     *                 type="string",
-     *                 example=""
-     *             ),
-     *             @OA\Property(
      *                 property="data",
      *                 type="object",
      *                 @OA\Property(
@@ -519,9 +494,6 @@ class PaletteController extends Controller
     {
         views($palette)->record();
 
-        return ApiResponseFacade::withSuccess(true)
-            ->withData(new ColorResource($palette))
-            ->withMessage('')
-            ->build()->response();
+        return PaletteResource::make($palette);
     }
 }
