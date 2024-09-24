@@ -20,7 +20,7 @@ class PaletteRepository
         ]);
 
         return $this->authResultBuilder->setSuccess(true)
-            ->setMessage(__('messages.palette_created_successfully'))
+            ->setMessage(__('messages.created_successfully'))
             ->setData($newPalette)
             ->build();
     }
@@ -30,7 +30,7 @@ class PaletteRepository
         $palette->update(['colors' => $colors]);
 
         return $this->authResultBuilder->setSuccess(true)
-            ->setMessage(__('messages.palette_updated_successfully'))
+            ->setMessage(__('messages.updated_successfully'))
             ->build();
     }
 

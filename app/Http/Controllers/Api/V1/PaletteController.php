@@ -53,7 +53,7 @@ class PaletteController extends Controller
 
         return ApiResponseFacade::withSuccess(true)
             ->withStatus(204)
-            ->withMessage(__('messages.palette_deleted_successfully'))
+            ->withMessage(__('messages.deleted_successfully'))
             ->build()->response();
     }
 
@@ -63,7 +63,7 @@ class PaletteController extends Controller
 
         return ApiResponseFacade::withSuccess(true)
             ->withData(new ColorResource($palette))
-            ->withMessage(__('messages.palette_deleted_successfully'))
+            ->withMessage('')
             ->build()->response();
     }
 }
