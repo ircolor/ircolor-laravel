@@ -3,9 +3,8 @@ name: Tests
 on:
   push:
     branches:
-      - dev
       - main
-  pull_request:
+      - develop
 
 permissions:
   contents: read
