@@ -9,4 +9,11 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Collection extends Model
 {
     use HasFactory, SoftDeletes;
+
+    protected $fillable = ['name', 'user_id'];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

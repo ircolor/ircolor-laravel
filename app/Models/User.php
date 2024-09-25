@@ -49,4 +49,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Palette::class);
     }
+
+    public function collections()
+    {
+        return $this->hasMany(Collection::class);
+    }
 }
