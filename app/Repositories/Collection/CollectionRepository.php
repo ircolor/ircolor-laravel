@@ -23,4 +23,15 @@ class CollectionRepository
             ->setData($newCollection)
             ->build();
     }
+
+    public function update(Collection $collection, string $collectionName)
+    {
+        $collection->update([
+           'name' => $collectionName
+        ]);
+
+        return $this->authResultBuilder->setSuccess(true)
+            ->setMessage(__('messages.updated_successfully'))
+            ->build();
+    }
 }
