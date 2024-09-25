@@ -1,12 +1,14 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
-use App\Models\Collection;
-use Illuminate\Http\Request;
 
 class CollectionController extends Controller
 {
 
+    public function store()
+    {
+
+    }
 }

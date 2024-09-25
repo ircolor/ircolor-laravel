@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Requests\Api;
+namespace App\Http\Requests\Api\Auth;
 
 use App\Http\Requests\ApiBaseRequest;
 use Illuminate\Contracts\Validation\ValidationRule;
 
-class StorePaletteRequest extends ApiBaseRequest
+class AuthLoginRequest extends ApiBaseRequest
 {
     /**
      * Get the validation rules that apply to the request.
@@ -15,8 +15,8 @@ class StorePaletteRequest extends ApiBaseRequest
     public function rules(): array
     {
         return [
-            'colors' => 'required|array',
-            'colors.*' => ['required', 'regex:/^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/'],
+            'email' => 'required|email',
+            'password' => 'required|min:6|max:255',
         ];
     }
 }

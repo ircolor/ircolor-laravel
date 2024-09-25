@@ -1,7 +1,7 @@
 <?php
 
-use App\Http\Controllers\Api\CollectionController;
 use App\Http\Controllers\Api\V1\AuthController;
+use App\Http\Controllers\Api\V1\CollectionController;
 use App\Http\Controllers\Api\V1\PaletteController;
 use Illuminate\Support\Facades\Route;
 
