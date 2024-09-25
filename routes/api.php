@@ -16,6 +16,7 @@ Route::group(['prefix' => '/v1'], function () {
     Route::group(['middleware' => 'auth:sanctum'], function () {
         Route::apiResource('collections', CollectionController::class);
         Route::post('/collections/{collection}/{palette}/store', [CollectionController::class, 'storePalette']);
+        Route::delete('/collections/{collection}/{palette}/remove', [CollectionController::class, 'removePalette']);
     });
 
 });

@@ -57,7 +57,7 @@ class CollectionController extends Controller
 
         try {
             $palette->storeInCollection($collection);
-            
+
         } catch (UniqueConstraintViolationException $e) {
             return ApiResponseFacade::withStatus(409)
                 ->withMessage(__('messages.previously_added'))
@@ -67,5 +67,12 @@ class CollectionController extends Controller
         return ApiResponseFacade::withStatus(200)
             ->withMessage(__('messages.created_successfully'))
             ->build()->response();
+    }
+
+    public function removePalette(Collection $collection, Palette $palette)
+    {
+        $this->authorize('removePalette', $collection);
+        $palette->removeFromCollection($collection);
+        return ApiResponseFacade::withStatus(204)->build()->response();
     }
 }

@@ -20,4 +20,10 @@ trait Collectionable
     {
         $this->collections()->attach($collection->id);
     }
+
+    public function removeFromCollection(Collection $collection)
+    {
+        $this->collections()->detach($collection->id);
+    }
+
 }

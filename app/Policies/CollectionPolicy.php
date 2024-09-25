@@ -21,4 +21,9 @@ class CollectionPolicy
     {
         return $user->id == $collection->user_id;
     }
+
+    public function removePalette(User $user, Collection $collection)
+    {
+        return $user->id == $collection->user_id;
+    }
 }
