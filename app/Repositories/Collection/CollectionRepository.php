@@ -11,6 +11,15 @@ class CollectionRepository
 
     public function __construct(private AuthResultBuilder $authResultBuilder) {}
 
+    public function all($userId)
+    {
+        $collections = Collection::where('user_id', $userId)->get();
+
+        return $this->authResultBuilder->setSuccess(true)
+            ->setData($collections)
+            ->build();
+    }
+
     public function store(string $collectionName)
     {
         $newCollection = Collection::create([

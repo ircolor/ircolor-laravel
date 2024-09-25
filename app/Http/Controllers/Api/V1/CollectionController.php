@@ -17,6 +17,12 @@ class CollectionController extends Controller
     {
     }
 
+    public function index()
+    {
+        $collections = $this->collectionRepository->all(auth()->guard('sanctum')->user()->id);
+        return CollectionResource::collection($collections->getData());
+    }
+
     public function store(StoreCollectionRequest $request)
     {
         $newCollection = $this->collectionRepository->store($request->input('name'));
