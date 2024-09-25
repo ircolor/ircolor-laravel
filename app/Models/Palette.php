@@ -12,8 +12,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Palette extends Model implements Viewable
 {
-
-    use HasFactory, InteractsWithViews, Collectionable;
+    use Collectionable, HasFactory, InteractsWithViews;
 
     protected $fillable = ['colors', 'user_id'];
 

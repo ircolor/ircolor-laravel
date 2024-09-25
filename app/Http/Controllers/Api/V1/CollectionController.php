@@ -73,6 +73,7 @@ class CollectionController extends Controller
     {
         $this->authorize('removePalette', $collection);
         $palette->removeFromCollection($collection);
+
         return ApiResponseFacade::withStatus(204)->build()->response();
     }
 }
