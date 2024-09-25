@@ -7,4 +7,5 @@ return [
     'updated_successfully' => 'با موفقیت آپدیت شد',
     'deleted_successfully' => 'با موفقیت حذف شد',
     'unauthorized_access' => 'دسترسی غیر مجاز',
+    'model_not_found' => 'رکورد مورد نظر یافت نشد'
 ];
