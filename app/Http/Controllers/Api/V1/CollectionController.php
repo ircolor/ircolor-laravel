@@ -36,4 +36,11 @@ class CollectionController extends Controller
             ->withStatus(200)
             ->build()->response();
     }
+
+    public function destroy(Collection $collection)
+    {
+        $this->authorize('destroy', $collection);
+        $this->collectionRepository->destroy($collection);
+        return ApiResponseFacade::withStatus(204)->build()->response();
+    }
 }

@@ -12,4 +12,9 @@ class CollectionPolicy
     {
         return $user->id == $collection->user_id;
     }
+
+    public function destroy(User $user, Collection $collection)
+    {
+        return $user->id == $collection->user_id;
+    }
 }

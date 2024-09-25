@@ -34,4 +34,9 @@ class CollectionRepository
             ->setMessage(__('messages.updated_successfully'))
             ->build();
     }
+
+    public function destroy(Collection $collection)
+    {
+        $collection->delete();
+    }
 }
