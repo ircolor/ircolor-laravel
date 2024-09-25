@@ -16,8 +16,8 @@ class CollectionResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            "name" => $this->name,
-            "user" => new UserResource($this->user)
+            'name' => $this->name,
+            'user' => new UserResource($this->user),
         ];
     }
 }

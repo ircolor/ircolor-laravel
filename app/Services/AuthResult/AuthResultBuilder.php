@@ -6,7 +6,7 @@ class AuthResultBuilder
 {
     private bool $success = true;
 
-    private string $message = "";
+    private string $message = '';
 
     private mixed $data = null;
 

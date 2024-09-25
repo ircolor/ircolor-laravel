@@ -8,7 +8,6 @@ use Illuminate\Support\Facades\Auth;
 
 class CollectionRepository
 {
-
     public function __construct(private AuthResultBuilder $authResultBuilder) {}
 
     public function all($userId)
@@ -23,8 +22,8 @@ class CollectionRepository
     public function store(string $collectionName)
     {
         $newCollection = Collection::create([
-           "name" => $collectionName,
-           "user_id" => Auth::guard('sanctum')->user()->id
+            'name' => $collectionName,
+            'user_id' => Auth::guard('sanctum')->user()->id,
         ]);
 
         return $this->authResultBuilder->setSuccess(true)
@@ -36,7 +35,7 @@ class CollectionRepository
     public function update(Collection $collection, string $collectionName)
     {
         $collection->update([
-           'name' => $collectionName
+            'name' => $collectionName,
         ]);
 
         return $this->authResultBuilder->setSuccess(true)

@@ -12,14 +12,12 @@ use App\Services\ApiResponse\ApiResponseFacade;
 
 class CollectionController extends Controller
 {
-
-    public function __construct(private CollectionRepository $collectionRepository)
-    {
-    }
+    public function __construct(private CollectionRepository $collectionRepository) {}
 
     public function index()
     {
         $collections = $this->collectionRepository->all(auth()->guard('sanctum')->user()->id);
+
         return CollectionResource::collection($collections->getData());
     }
 
@@ -47,6 +45,7 @@ class CollectionController extends Controller
     {
         $this->authorize('destroy', $collection);
         $this->collectionRepository->destroy($collection);
+
         return ApiResponseFacade::withStatus(204)->build()->response();
     }
 }
