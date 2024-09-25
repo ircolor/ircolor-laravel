@@ -7,8 +7,10 @@ use App\Http\Requests\Api\Collections\StoreCollectionRequest;
 use App\Http\Requests\Api\Collections\UpdateCollectionRequest;
 use App\Http\Resources\Collection\CollectionResource;
 use App\Models\Collection;
+use App\Models\Palette;
 use App\Repositories\Collection\CollectionRepository;
 use App\Services\ApiResponse\ApiResponseFacade;
+use Illuminate\Database\UniqueConstraintViolationException;
 
 class CollectionController extends Controller
 {
@@ -47,5 +49,23 @@ class CollectionController extends Controller
         $this->collectionRepository->destroy($collection);
 
         return ApiResponseFacade::withStatus(204)->build()->response();
+    }
+
+    public function storePalette(Collection $collection, Palette $palette)
+    {
+        $this->authorize('storePalette', $collection);
+
+        try {
+            $palette->storeInCollection($collection);
+            
+        } catch (UniqueConstraintViolationException $e) {
+            return ApiResponseFacade::withStatus(409)
+                ->withMessage(__('messages.previously_added'))
+                ->build()->response();
+        }
+
+        return ApiResponseFacade::withStatus(200)
+            ->withMessage(__('messages.created_successfully'))
+            ->build()->response();
     }
 }

@@ -13,6 +13,9 @@ Route::group(['prefix' => '/v1'], function () {
     Route::apiResource('palettes', PaletteController::class)->only(['store', 'update', 'destroy'])->middleware('auth:sanctum');
     Route::apiResource('palettes', PaletteController::class)->only(['index', 'show']);
 
-    Route::apiResource('collections', CollectionController::class)->middleware('auth:sanctum');
+    Route::group(['middleware' => 'auth:sanctum'], function () {
+        Route::apiResource('collections', CollectionController::class);
+        Route::post('/collections/{collection}/{palette}/store', [CollectionController::class, 'storePalette']);
+    });
 
 });
