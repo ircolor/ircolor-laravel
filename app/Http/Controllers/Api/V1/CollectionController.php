@@ -14,6 +14,9 @@ use Illuminate\Database\UniqueConstraintViolationException;
 
 class CollectionController extends Controller
 {
+
+    const DEFAULT_COLLECTION_NAME = 'all';
+
     public function __construct(private CollectionRepository $collectionRepository) {}
 
     public function index()
