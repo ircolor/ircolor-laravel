@@ -49,6 +49,13 @@ class CollectionController extends Controller
     public function destroy(Collection $collection)
     {
         $this->authorize('destroy', $collection);
+
+        if($collection->name == self::DEFAULT_COLLECTION_NAME){
+            return ApiResponseFacade::withStatus(403)
+                ->withMessage(__('messages.default_collection_remove_error'))
+                ->build()->response();
+        }
+
         $this->collectionRepository->destroy($collection);
 
         return ApiResponseFacade::withStatus(204)->build()->response();
