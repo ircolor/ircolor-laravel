@@ -17,7 +17,7 @@ return new class extends Migration
             $table->unsignedBigInteger('likeable_id');
             $table->string('likeable_type');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->unique(['likeable_id', 'likeable_type']);
+            $table->unique(['user_id','likeable_id', 'likeable_type']);
             $table->timestamps();
         });
     }
