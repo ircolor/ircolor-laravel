@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\Collections\StoreCollectionRequest;
 use App\Http\Requests\Api\Collections\UpdateCollectionRequest;
 use App\Http\Resources\Collection\CollectionResource;
+use App\Http\Resources\Palette\ColorResource;
 use App\Models\Collection;
 use App\Models\Palette;
 use App\Repositories\Collection\CollectionRepository;
@@ -17,7 +18,9 @@ class CollectionController extends Controller
 
     const DEFAULT_COLLECTION_NAME = 'all';
 
-    public function __construct(private CollectionRepository $collectionRepository) {}
+    public function __construct(private CollectionRepository $collectionRepository)
+    {
+    }
 
     public function index()
     {
@@ -50,7 +53,7 @@ class CollectionController extends Controller
     {
         $this->authorize('destroy', $collection);
 
-        if($collection->name == self::DEFAULT_COLLECTION_NAME){
+        if ($collection->name == self::DEFAULT_COLLECTION_NAME) {
             return ApiResponseFacade::withStatus(403)
                 ->withMessage(__('messages.default_collection_remove_error'))
                 ->build()->response();
@@ -85,5 +88,15 @@ class CollectionController extends Controller
         $palette->removeFromCollection($collection);
 
         return ApiResponseFacade::withStatus(204)->build()->response();
+    }
+
+    public function getPalettes(Collection $collection)
+    {
+        $this->authorize('showPalettes', $collection);
+
+        $collectionPalettes = $this->collectionRepository->show($collection);
+
+        return ApiResponseFacade::withData(new CollectionResource($collectionPalettes->getData()))
+            ->build()->response();
     }
 }

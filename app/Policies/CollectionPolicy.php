@@ -26,4 +26,9 @@ class CollectionPolicy
     {
         return $user->id == $collection->user_id;
     }
+
+    public function showPalettes(User $user, Collection $collection)
+    {
+        return $user->id == $collection->user_id;
+    }
 }

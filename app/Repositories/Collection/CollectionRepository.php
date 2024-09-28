@@ -47,4 +47,11 @@ class CollectionRepository
     {
         $collection->delete();
     }
+
+    public function show($collection)
+    {
+        return $this->authResultBuilder->setSuccess(true)
+            ->setData($collection->load('palettes'))
+            ->build();
+    }
 }

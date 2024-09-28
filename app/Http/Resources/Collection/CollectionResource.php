@@ -3,6 +3,7 @@
 namespace App\Http\Resources\Collection;
 
 use App\Http\Resources\Auth\UserResource;
+use App\Http\Resources\Palette\PaletteResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -17,7 +18,8 @@ class CollectionResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'name' => $this->name
+            'name' => $this->name,
+            "palettes" => $this->whenLoaded('palettes', fn() => PaletteResource::collection($this->palettes))
         ];
     }
 }
