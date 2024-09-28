@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Traits\Collectionable;
+use App\Traits\Likeable;
 use CyrildeWit\EloquentViewable\Contracts\Viewable;
 use CyrildeWit\EloquentViewable\InteractsWithViews;
 use Illuminate\Database\Eloquent\Casts\Attribute;
@@ -12,7 +13,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Palette extends Model implements Viewable
 {
-    use Collectionable, HasFactory, InteractsWithViews;
+    use Collectionable, HasFactory, InteractsWithViews, Likeable;
 
     protected $fillable = ['colors', 'user_id'];
 
