@@ -15,9 +15,19 @@ trait Likeable
         $this->likes()->save($like);
     }
 
+    public function unLike()
+    {
+        $this->likes()->where('likeable_id', $this->id)->first()->delete();
+    }
+
     public function likes()
     {
         return $this->morphMany(Like::class, 'likeable');
+    }
+
+    public function checkLikeExists()
+    {
+        return $this->likes()->where('user_id', auth()->id())->exists();
     }
 
 }

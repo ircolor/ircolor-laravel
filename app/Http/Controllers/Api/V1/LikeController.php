@@ -28,4 +28,17 @@ class LikeController extends Controller
 
         return ApiResponseFacade::build()->response();
     }
+
+    public function unLike(Palette $palette)
+    {
+        if(!$palette->checkLikeExists()){
+            return ApiResponseFacade::withStatus(404)
+                ->withMessage(__('messages.model_not_found'))
+                ->build()->response();
+        }
+
+        $this->likeRepository->unLike($palette);
+
+        return ApiResponseFacade::build()->response();
+    }
 }

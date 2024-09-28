@@ -19,4 +19,12 @@ class LikeRepository
 
         return $this->authResultBuilder->setSuccess(true)->build();
     }
+
+    public function unLike(Palette $palette)
+    {
+        $palette->unLike();
+
+        return $this->authResultBuilder->setSuccess(true)->build();
+    }
+
 }
