@@ -10,10 +10,7 @@ use Illuminate\Database\UniqueConstraintViolationException;
 
 class LikeController extends Controller
 {
-
-    public function __construct(private LikeRepository $likeRepository)
-    {
-    }
+    public function __construct(private LikeRepository $likeRepository) {}
 
     public function like(Palette $palette)
     {
@@ -31,7 +28,7 @@ class LikeController extends Controller
 
     public function unLike(Palette $palette)
     {
-        if(!$palette->checkLikeExists()){
+        if (! $palette->checkLikeExists()) {
             return ApiResponseFacade::withStatus(404)
                 ->withMessage(__('messages.model_not_found'))
                 ->build()->response();

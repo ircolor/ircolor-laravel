@@ -3,12 +3,9 @@
 namespace App\Traits;
 
 use App\Models\Like;
-use App\Models\Palette;
-use Illuminate\Database\Eloquent\Relations\MorphTo;
 
 trait Likeable
 {
-
     public function like()
     {
         $like = new Like(['user_id' => auth()->id()]);
@@ -29,5 +26,4 @@ trait Likeable
     {
         return $this->likes()->where('user_id', auth()->id())->exists();
     }
-
 }

@@ -9,5 +9,5 @@ return [
     'unauthorized_access' => 'دسترسی غیر مجاز',
     'model_not_found' => 'رکورد مورد نظر یافت نشد',
     'previously_added' => 'قبلا اضافه شده است',
-    'default_collection_remove_error' => 'این کالکشن قابل حذف نمیباشد'
+    'default_collection_remove_error' => 'این کالکشن قابل حذف نمیباشد',
 ];

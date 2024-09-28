@@ -7,11 +7,7 @@ use App\Services\AuthResult\AuthResultBuilder;
 
 class LikeRepository
 {
-
-    public function __construct(private AuthResultBuilder $authResultBuilder)
-    {
-    }
-
+    public function __construct(private AuthResultBuilder $authResultBuilder) {}
 
     public function like(Palette $palette)
     {
@@ -26,5 +22,4 @@ class LikeRepository
 
         return $this->authResultBuilder->setSuccess(true)->build();
     }
-
 }

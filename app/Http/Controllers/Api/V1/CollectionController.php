@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\Collections\StoreCollectionRequest;
 use App\Http\Requests\Api\Collections\UpdateCollectionRequest;
 use App\Http\Resources\Collection\CollectionResource;
-use App\Http\Resources\Palette\ColorResource;
 use App\Models\Collection;
 use App\Models\Palette;
 use App\Repositories\Collection\CollectionRepository;
@@ -15,12 +14,9 @@ use Illuminate\Database\UniqueConstraintViolationException;
 
 class CollectionController extends Controller
 {
-
     const DEFAULT_COLLECTION_NAME = 'all';
 
-    public function __construct(private CollectionRepository $collectionRepository)
-    {
-    }
+    public function __construct(private CollectionRepository $collectionRepository) {}
 
     public function index()
     {
