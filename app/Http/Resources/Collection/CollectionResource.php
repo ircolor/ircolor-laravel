@@ -17,8 +17,7 @@ class CollectionResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'name' => $this->name,
-            'user' => new UserResource($this->user),
+            'name' => $this->name
         ];
     }
 }

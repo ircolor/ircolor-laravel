@@ -21,7 +21,7 @@ class CollectionController extends Controller
 
     public function index()
     {
-        $collections = $this->collectionRepository->all(auth()->guard('sanctum')->user()->id);
+        $collections = $this->collectionRepository->all(auth()->id());
 
         return CollectionResource::collection($collections->getData());
     }
