@@ -16,9 +16,9 @@ class CollectionResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'id' => $this->id,
-            'name' => $this->name,
-            'palettes' => $this->whenLoaded('palettes', fn () => PaletteResource::collection($this->palettes)),
+            'id' => $this->resource->id,
+            'name' => $this->resource->name,
+            'palettes' => $this->whenLoaded('palettes', fn () => PaletteResource::collection($this->resource->palettes)),
         ];
     }
 }

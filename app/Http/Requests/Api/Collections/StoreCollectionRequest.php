@@ -20,7 +20,7 @@ class StoreCollectionRequest extends FormRequest
             'name' => [
                 'required',
                 Rule::unique('collections')
-                    ->where(fn (Builder $query) => $query->where('user_id', auth()->guard('sanctum')->user()->id)),
+                    ->where(fn (Builder $query) => $query->where('user_id', auth()->id())),
             ],
         ];
     }

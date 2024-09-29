@@ -23,7 +23,7 @@ class CollectionRepository
     {
         $newCollection = Collection::create([
             'name' => $collectionName,
-            'user_id' => Auth::guard('sanctum')->user()->id,
+            'user_id' => auth()->id(),
         ]);
 
         return $this->authResultBuilder->setSuccess(true)
