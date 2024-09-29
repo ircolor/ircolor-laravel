@@ -12,7 +12,7 @@ Route::group(['prefix' => '/v1'], function () {
     Route::get('/palettes/{palette}/like', [LikeController::class, 'like']);
     Route::delete('/palettes/{palette}/unlike', [LikeController::class, 'unLike']);
 
-    Route::apiResource('collections', CollectionController::class);
+    Route::apiResource('collections', CollectionController::class)->except('show');
 
     Route::resource('collections.palettes', CollectionPaletteController::class)
         ->only(['store', 'destroy', 'index']);

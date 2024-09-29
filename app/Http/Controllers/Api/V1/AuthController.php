@@ -13,6 +13,10 @@ class AuthController extends Controller
 {
     public function __construct(private AuthService $authService) {}
 
+    /**
+     * Get list of all palettes
+     * @unauthenticated
+     */
     public function register(AuthRegisterRequest $request)
     {
         $registrationResult = $this->authService->register($request->input('name'), $request->input('email'), $request->input('password'));
@@ -31,6 +35,10 @@ class AuthController extends Controller
             ->build()->response();
     }
 
+    /**
+     * Get list of all palettes
+     * @unauthenticated
+     */
     public function login(AuthLoginRequest $request)
     {
         $loginResult = $this->authService->login($request->input('email'), $request->input('password'));

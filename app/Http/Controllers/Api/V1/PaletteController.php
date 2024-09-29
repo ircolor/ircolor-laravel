@@ -14,11 +14,18 @@ class PaletteController extends Controller
 {
     public function __construct(private PaletteRepository $paletteRepository) {}
 
+    /**
+     * Get list of all palettes
+     * @unauthenticated
+     */
     public function index()
     {
         return PaletteResource::collection(Palette::with('user')->paginate());
     }
 
+    /**
+     * Create new palette
+     */
     public function store(StorePaletteRequest $request)
     {
         $newPalette = $this->paletteRepository->store($request->input('colors'));
@@ -29,6 +36,9 @@ class PaletteController extends Controller
             ->build()->response();
     }
 
+    /**
+     * Update palette
+     */
     public function update(UpdatePaletteRequest $request, Palette $palette)
     {
         $this->authorize('update', $palette);
@@ -39,6 +49,9 @@ class PaletteController extends Controller
             ->build()->response();
     }
 
+    /**
+     * Delete palette
+     */
     public function destroy(Palette $palette)
     {
         $this->authorize('destroy', $palette);
@@ -50,6 +63,10 @@ class PaletteController extends Controller
             ->build()->response();
     }
 
+    /**
+     * Show palette
+     * @unauthenticated
+     */
     public function show(Palette $palette)
     {
         views($palette)->record();
