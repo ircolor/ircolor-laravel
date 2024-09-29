@@ -14,7 +14,10 @@ trait Likeable
 
     public function unLike()
     {
-        $this->likes()->where('likeable_id', $this->id)->where('user_id', auth()->id())->delete();
+        $this->likes()->where([
+            ['likeable_id', $this->id],
+            ['user_id', auth()->id()]
+        ])->delete();
     }
 
     public function likes()
