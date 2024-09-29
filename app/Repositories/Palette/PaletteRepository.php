@@ -31,4 +31,9 @@ class PaletteRepository
             ->setMessage(__('messages.updated_successfully'))
             ->build();
     }
+
+    public function findPaletteById($id)
+    {
+        return Palette::where('id', $id)->first();
+    }
 }

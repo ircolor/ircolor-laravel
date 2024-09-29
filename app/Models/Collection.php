@@ -10,6 +10,8 @@ class Collection extends Model
 {
     use HasFactory, SoftDeletes;
 
+    const DEFAULT_COLLECTION_NAME = 'all';
+
     protected $fillable = ['name', 'user_id'];
 
     public function user()

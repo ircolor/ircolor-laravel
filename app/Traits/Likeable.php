@@ -22,7 +22,7 @@ trait Likeable
         return $this->morphMany(Like::class, 'likeable');
     }
 
-    public function checkLikeExists()
+    public function isLiked()
     {
         return $this->likes()->where('user_id', auth()->id())->exists();
     }
