@@ -7,7 +7,6 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class CollectionPaletteStoreRequest extends FormRequest
 {
-
     /**
      * Get the validation rules that apply to the request.
      *
@@ -16,7 +15,7 @@ class CollectionPaletteStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'palette_id' => 'required|exists:palettes,id'
+            'palette_id' => 'required|exists:palettes,id',
         ];
     }
 }

@@ -14,7 +14,6 @@ use Illuminate\Database\UniqueConstraintViolationException;
 
 class CollectionPaletteController extends Controller
 {
-
     public function __construct(private CollectionRepository $collectionRepository, private PaletteRepository $paletteRepository) {}
 
     public function store(CollectionPaletteStoreRequest $request, Collection $collection)
