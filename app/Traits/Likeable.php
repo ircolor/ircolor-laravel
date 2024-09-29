@@ -16,7 +16,7 @@ trait Likeable
     {
         $this->likes()->where([
             ['likeable_id', $this->id],
-            ['user_id', auth()->id()]
+            ['user_id', auth()->id()],
         ])->delete();
     }
 
