@@ -34,6 +34,6 @@ class PaletteRepository
 
     public function findPaletteById($id)
     {
-        return Palette::where('id', $id)->first();
+        return Palette::find($id);
     }
 }
