@@ -4,7 +4,6 @@ namespace App\Repositories\Collection;
 
 use App\Models\Collection;
 use App\Services\AuthResult\AuthResultBuilder;
-use Illuminate\Support\Facades\Auth;
 
 class CollectionRepository
 {
