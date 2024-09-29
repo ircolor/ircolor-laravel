@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Api\AuthLoginRequest;
-use App\Http\Requests\Api\AuthRegisterRequest;
-use App\Http\Resources\RegisterUserResource;
+use App\Http\Requests\Api\Auth\AuthLoginRequest;
+use App\Http\Requests\Api\Auth\AuthRegisterRequest;
+use App\Http\Resources\Auth\RegisterUserResource;
 use App\Services\ApiResponse\ApiResponseFacade;
 use App\Services\Auth\AuthService;
 use OpenApi\Annotations as OA;
