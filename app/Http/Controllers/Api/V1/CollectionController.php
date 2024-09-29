@@ -7,14 +7,11 @@ use App\Http\Requests\Api\Collections\StoreCollectionRequest;
 use App\Http\Requests\Api\Collections\UpdateCollectionRequest;
 use App\Http\Resources\Collection\CollectionResource;
 use App\Models\Collection;
-use App\Models\Palette;
 use App\Repositories\Collection\CollectionRepository;
 use App\Services\ApiResponse\ApiResponseFacade;
-use Illuminate\Database\UniqueConstraintViolationException;
 
 class CollectionController extends Controller
 {
-
     public function __construct(private CollectionRepository $collectionRepository) {}
 
     public function index()

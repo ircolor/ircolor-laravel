@@ -2,7 +2,6 @@
 
 namespace App\Observers;
 
-use App\Http\Controllers\Api\V1\CollectionController;
 use App\Models\Collection;
 use App\Models\User;
 
