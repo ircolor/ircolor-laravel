@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Resources;
+namespace App\Http\Resources\Palette;
 
+use App\Http\Resources\Auth\UserResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -21,6 +22,7 @@ class PaletteResource extends JsonResource
             'id' => $this->resource->id,
             'colors' => ColorResource::collection($this->resource->colors),
             'user' => new UserResource($this->resource->user),
+            'likes' => $this->resource->likesCount(),
         ];
     }
 }

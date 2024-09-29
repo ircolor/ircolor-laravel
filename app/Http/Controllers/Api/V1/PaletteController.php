@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Api\StorePaletteRequest;
-use App\Http\Requests\Api\UpdatePaletteRequest;
-use App\Http\Resources\PaletteResource;
+use App\Http\Requests\Api\Palettes\StorePaletteRequest;
+use App\Http\Requests\Api\Palettes\UpdatePaletteRequest;
+use App\Http\Resources\Palette\PaletteResource;
 use App\Models\Palette;
 use App\Repositories\Palette\PaletteRepository;
 use App\Services\ApiResponse\ApiResponseFacade;

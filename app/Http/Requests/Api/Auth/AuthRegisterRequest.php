@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\Api;
+namespace App\Http\Requests\Api\Auth;
 
 use App\Http\Requests\ApiBaseRequest;
 use Illuminate\Contracts\Validation\ValidationRule;

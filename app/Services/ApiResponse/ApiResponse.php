@@ -4,7 +4,7 @@ namespace App\Services\ApiResponse;
 
 class ApiResponse
 {
-    private string $message;
+    private string $message = '';
 
     private mixed $data = null;
 
