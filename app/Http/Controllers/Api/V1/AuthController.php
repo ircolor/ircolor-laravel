@@ -15,6 +15,7 @@ class AuthController extends Controller
 
     /**
      * Get list of all palettes
+     *
      * @unauthenticated
      */
     public function register(AuthRegisterRequest $request)
@@ -37,6 +38,7 @@ class AuthController extends Controller
 
     /**
      * Get list of all palettes
+     *
      * @unauthenticated
      */
     public function login(AuthLoginRequest $request)

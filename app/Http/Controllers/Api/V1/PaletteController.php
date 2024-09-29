@@ -16,6 +16,7 @@ class PaletteController extends Controller
 
     /**
      * Get list of all palettes
+     *
      * @unauthenticated
      */
     public function index()
@@ -65,6 +66,7 @@ class PaletteController extends Controller
 
     /**
      * Show palette
+     *
      * @unauthenticated
      */
     public function show(Palette $palette)
