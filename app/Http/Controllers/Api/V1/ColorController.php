@@ -10,10 +10,7 @@ use App\Services\Colors\ColorService;
 
 class ColorController extends Controller
 {
-
-    public function __construct(private ColorService $colorService)
-    {
-    }
+    public function __construct(private ColorService $colorService) {}
 
     public function show(ShowColorRequest $request, string $hex)
     {

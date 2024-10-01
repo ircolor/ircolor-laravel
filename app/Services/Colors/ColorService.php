@@ -6,16 +6,13 @@ use App\Services\AuthResult\AuthResultBuilder;
 
 class ColorService
 {
-
-    public function __construct(private AuthResultBuilder $authResultBuilder)
-    {
-    }
+    public function __construct(private AuthResultBuilder $authResultBuilder) {}
 
     public function generateDarkBrightColors($hex, int $times = 10)
     {
         $colors = [
-            "dark" => $this->darkColors($hex, $times),
-            "bright" => $this->brightColors($hex, $times)
+            'dark' => $this->darkColors($hex, $times),
+            'bright' => $this->brightColors($hex, $times),
         ];
 
         return $this->authResultBuilder->setSuccess(true)->setData($colors)->build();
@@ -36,9 +33,10 @@ class ColorService
             $g = max(0, $g - 3);
             $b = max(0, $b - 3);
 
-            $newHex = sprintf("#%02x%02x%02x", $r, $g, $b);
+            $newHex = sprintf('#%02x%02x%02x', $r, $g, $b);
             $colors[] = $newHex;
         }
+
         return $colors;
     }
 
@@ -57,11 +55,10 @@ class ColorService
             $g = min(255, $g + 3);
             $b = min(255, $b + 3);
 
-            $newHex = sprintf("#%02x%02x%02x", $r, $g, $b);
+            $newHex = sprintf('#%02x%02x%02x', $r, $g, $b);
             $colors[] = $newHex;
         }
+
         return $colors;
     }
-
 }
-

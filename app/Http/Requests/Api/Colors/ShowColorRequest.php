@@ -7,7 +7,6 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class ShowColorRequest extends FormRequest
 {
-
     /**
      * Get the validation rules that apply to the request.
      *
@@ -16,7 +15,7 @@ class ShowColorRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "hex" => ["required", "regex:/^[0-9a-fA-F]{6}$|[0-9a-fA-F]{3}$/"]
+            'hex' => ['required', 'regex:/^[0-9a-fA-F]{6}$|[0-9a-fA-F]{3}$/'],
         ];
     }
 
