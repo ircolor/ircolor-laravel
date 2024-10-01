@@ -36,4 +36,19 @@ class PaletteRepository
     {
         return Palette::find($id);
     }
+
+    public function sortByLikes()
+    {
+        return Palette::with('user')->orderByLikes('desc')->paginate();
+    }
+
+    public function sortByViews()
+    {
+        return Palette::with('user')->orderByViews('desc')->paginate();
+    }
+
+    public function sortByCollections()
+    {
+        return Palette::with('user')->orderByCollections('desc')->paginate();
+    }
 }

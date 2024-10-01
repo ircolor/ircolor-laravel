@@ -9,19 +9,22 @@ use App\Http\Resources\Palette\PaletteResource;
 use App\Models\Palette;
 use App\Repositories\Palette\PaletteRepository;
 use App\Services\ApiResponse\ApiResponseFacade;
+use App\Services\Palette\PaletteService;
+use Illuminate\Http\Request;
 
 class PaletteController extends Controller
 {
-    public function __construct(private PaletteRepository $paletteRepository) {}
+    public function __construct(private PaletteRepository $paletteRepository, private PaletteService $paletteService) {}
 
     /**
      * Get list of all palettes
      *
      * @unauthenticated
      */
-    public function index()
+    public function index(Request $request)
     {
-        return PaletteResource::collection(Palette::with('user')->paginate());
+        $palettes = $this->paletteService->all($request->input('sort') ?? '');
+        return PaletteResource::collection($palettes);
     }
 
     /**
