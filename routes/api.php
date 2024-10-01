@@ -1,19 +1,20 @@
 <?php
 
-use Illuminate\Http\Request;
+use App\Http\Controllers\Api\V1\CollectionController;
+use App\Http\Controllers\Api\V1\CollectionPaletteController;
+use App\Http\Controllers\Api\V1\LikeController;
+use App\Http\Controllers\Api\V1\PaletteController;
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| API Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register API routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "api" middleware group. Make something great!
-|
-*/
+Route::group(['prefix' => '/v1'], function () {
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+    Route::apiResource('palettes', PaletteController::class)->only(['store', 'update', 'destroy']);
+    Route::get('/palettes/{palette}/like', [LikeController::class, 'like']);
+    Route::delete('/palettes/{palette}/unlike', [LikeController::class, 'unLike']);
+
+    Route::apiResource('collections', CollectionController::class)->except('show');
+
+    Route::resource('collections.palettes', CollectionPaletteController::class)
+        ->only(['store', 'destroy', 'index']);
+
 });
