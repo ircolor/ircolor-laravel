@@ -1,7 +1,7 @@
 <?php
 
+use App\Http\Controllers\Api\V1\ColorController;
 use App\Http\Controllers\Api\V1\PaletteController;
-use App\Http\Controllers\ColorController;
 use Illuminate\Support\Facades\Route;
 
 Route::group(['prefix' => '/v1'], function () {

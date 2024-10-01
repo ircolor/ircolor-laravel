@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api\V1;
 
+use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\Colors\ShowColorRequest;
-use App\Http\Resources\Color\ColorResource;
+use App\Http\Resources\Color\HexColorResource;
 use App\Services\ApiResponse\ApiResponseFacade;
 use App\Services\Colors\ColorService;
-use Illuminate\Http\Request;
 
 class ColorController extends Controller
 {
@@ -19,7 +19,7 @@ class ColorController extends Controller
     {
         $generatedColors = $this->colorService->generateDarkBrightColors($hex, $request->query('qty') ?? 10);
 
-        return ApiResponseFacade::withData(new ColorResource($generatedColors))
+        return ApiResponseFacade::withData(new HexColorResource($generatedColors->getData()))
             ->build()->response();
     }
 }
