@@ -16,6 +16,9 @@ class CollectionPaletteController extends Controller
 {
     public function __construct(private CollectionRepository $collectionRepository, private PaletteRepository $paletteRepository) {}
 
+    /**
+     * Save palette in collection
+     */
     public function store(CollectionPaletteStoreRequest $request, Collection $collection)
     {
         $this->authorize('storePalette', $collection);
@@ -36,6 +39,9 @@ class CollectionPaletteController extends Controller
             ->build()->response();
     }
 
+    /**
+     * Delete palette from collection
+     */
     public function destroy(Collection $collection, Palette $palette)
     {
         $this->authorize('removePalette', $collection);
@@ -44,6 +50,9 @@ class CollectionPaletteController extends Controller
         return ApiResponseFacade::withStatus(204)->build()->response();
     }
 
+    /**
+     * Get all palettes of a collection
+     */
     public function index(Collection $collection)
     {
         $this->authorize('showPalettes', $collection);

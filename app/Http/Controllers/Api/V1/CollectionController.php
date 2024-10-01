@@ -14,6 +14,9 @@ class CollectionController extends Controller
 {
     public function __construct(private CollectionRepository $collectionRepository) {}
 
+    /**
+     * Get all user's collections
+     */
     public function index()
     {
         $collections = $this->collectionRepository->all(auth()->id());
@@ -21,6 +24,9 @@ class CollectionController extends Controller
         return CollectionResource::collection($collections->getData());
     }
 
+    /**
+     * Create new collection for user
+     */
     public function store(StoreCollectionRequest $request)
     {
         $newCollection = $this->collectionRepository->store($request->input('name'));
@@ -31,6 +37,9 @@ class CollectionController extends Controller
             ->build()->response();
     }
 
+    /**
+     * Update user's collection
+     */
     public function update(Collection $collection, UpdateCollectionRequest $request)
     {
         $this->authorize('update', $collection);
@@ -41,6 +50,9 @@ class CollectionController extends Controller
             ->build()->response();
     }
 
+    /**
+     * Delete user's collection
+     */
     public function destroy(Collection $collection)
     {
         $this->authorize('destroy', $collection);

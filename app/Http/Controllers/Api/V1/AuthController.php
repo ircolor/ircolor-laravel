@@ -8,144 +8,15 @@ use App\Http\Requests\Api\Auth\AuthRegisterRequest;
 use App\Http\Resources\Auth\RegisterUserResource;
 use App\Services\ApiResponse\ApiResponseFacade;
 use App\Services\Auth\AuthService;
-use OpenApi\Annotations as OA;
 
 class AuthController extends Controller
 {
     public function __construct(private AuthService $authService) {}
 
     /**
-     * @OA\Post(
-     *     tags={"Authentication"},
-     *     path="/v1/auth/register",
-     *     summary="Register user",
-     *     description="Register a new user",
+     * * Register user
      *
-     *     @OA\RequestBody(
-     *         required=true,
-     *
-     *         @OA\MediaType(
-     *             mediaType="multipart/form-data",
-     *
-     *             @OA\Schema(
-     *
-     *                 @OA\Property(
-     *                     property="name",
-     *                     type="string",
-     *                     example="amirreza",
-     *                     minLength=5
-     *                 ),
-     *                 @OA\Property(
-     *                     property="email",
-     *                     type="string",
-     *                     format="email",
-     *                     example="amir@example.com"
-     *                 ),
-     *                 @OA\Property(
-     *                     property="password",
-     *                     type="string",
-     *                     format="password",
-     *                     example="123456",
-     *                     minLength=6
-     *                 ),
-     *                 @OA\Property(
-     *                     property="password_confirmation",
-     *                     type="string",
-     *                     format="password",
-     *                     example="123456",
-     *                     minLength=6
-     *                 )
-     *             )
-     *         )
-     *     ),
-     *
-     *     @OA\Response(
-     *         response=200,
-     *         description="User has been registered successfully",
-     *
-     *         @OA\JsonContent(
-     *
-     *             @OA\Property(
-     *                 property="success",
-     *                 type="boolean",
-     *                 example=true
-     *             ),
-     *             @OA\Property(
-     *                 property="message",
-     *                 type="string",
-     *                 example="User has been registered successfully"
-     *             ),
-     *             @OA\Property(
-     *                 property="data",
-     *                 type="object",
-     *                 @OA\Property(
-     *                     property="email",
-     *                     type="string"
-     *                 ),
-     *                 @OA\Property(
-     *                     property="name",
-     *                     type="string"
-     *                 ),
-     *                 @OA\Property(
-     *                     property="updated_at",
-     *                     type="string",
-     *                     format="date-time"
-     *                 ),
-     *                 @OA\Property(
-     *                     property="created_at",
-     *                     type="string",
-     *                     format="date-time"
-     *                 ),
-     *                 @OA\Property(
-     *                     property="id",
-     *                     type="integer"
-     *                 )
-     *             )
-     *         )
-     *     ),
-     *
-     *     @OA\Response(
-     *         response=422,
-     *         description="Validation Error",
-     *
-     *         @OA\JsonContent(
-     *
-     *             @OA\Property(
-     *                 property="success",
-     *                 type="boolean",
-     *                 example=false
-     *             ),
-     *             @OA\Property(
-     *                 property="message",
-     *                 type="string",
-     *                 example="Validation Error"
-     *             ),
-     *             @OA\Property(
-     *                 property="data",
-     *                 type="object",
-     *                 @OA\Property(
-     *                     property="email",
-     *                     type="array",
-     *
-     *                     @OA\Items(
-     *                         type="string",
-     *                         example="تکمیل گزینه ایمیل الزامی است"
-     *                     )
-     *                 ),
-     *
-     *                 @OA\Property(
-     *                     property="password",
-     *                     type="array",
-     *
-     *                     @OA\Items(
-     *                         type="string",
-     *                         example="تکمیل گزینه ایمیل الزامی است"
-     *                     )
-     *                 )
-     *             )
-     *         )
-     *     )
-     * )
+     * @unauthenticated
      */
     public function register(AuthRegisterRequest $request)
     {
@@ -166,64 +37,9 @@ class AuthController extends Controller
     }
 
     /**
-     * @OA\Post(
-     *     tags={"Authentication"},
-     *     path="/v1/auth/login",
-     *     summary="Login user",
-     *     description="Login new user",
+     * Login user
      *
-     *     @OA\RequestBody(
-     *         required=true,
-     *
-     *         @OA\MediaType(
-     *             mediaType="multipart/form-data",
-     *
-     *             @OA\Schema(
-     *
-     *                 @OA\Property(
-     *                     property="email",
-     *                     type="string",
-     *                     format="email",
-     *                     example="email@gmail.com"
-     *                 ),
-     *                 @OA\Property(
-     *                     property="password",
-     *                     type="string",
-     *                     format="password",
-     *                     example="123456",
-     *                     minLength=6
-     *                 )
-     *             )
-     *         )
-     *     ),
-     *
-     *     @OA\Response(
-     *         response=200,
-     *         description="User has been login successfully",
-     *
-     *         @OA\JsonContent(
-     *
-     *             @OA\Property(
-     *                 property="success",
-     *                 type="boolean",
-     *                 example=true
-     *             ),
-     *             @OA\Property(
-     *                 property="message",
-     *                 type="string",
-     *                 example="User has been login successfully"
-     *             ),
-     *             @OA\Property(
-     *                 property="data",
-     *                 type="object",
-     *                 @OA\Property(
-     *                     property="token",
-     *                     type="string"
-     *                 ),
-     *             )
-     *         )
-     *     ),
-     * )
+     * @unauthenticated
      */
     public function login(AuthLoginRequest $request)
     {

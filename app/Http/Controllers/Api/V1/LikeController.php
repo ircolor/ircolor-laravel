@@ -12,6 +12,9 @@ class LikeController extends Controller
 {
     public function __construct(private LikeRepository $likeRepository) {}
 
+    /**
+     * Like palette
+     */
     public function like(Palette $palette)
     {
         try {
@@ -26,6 +29,9 @@ class LikeController extends Controller
         return ApiResponseFacade::build()->response();
     }
 
+    /**
+     * Unlike palette (remove like)
+     */
     public function unLike(Palette $palette)
     {
         if (! $palette->isLiked()) {
