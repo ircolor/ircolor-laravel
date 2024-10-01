@@ -14,7 +14,7 @@ class AuthController extends Controller
     public function __construct(private AuthService $authService) {}
 
     /**
-     * * Register user
+     * Register user
      *
      * @unauthenticated
      */
