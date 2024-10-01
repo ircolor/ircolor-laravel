@@ -7,21 +7,18 @@ use App\Repositories\Palette\PaletteRepository;
 
 class PaletteService
 {
-
-    public function __construct(private PaletteRepository $paletteRepository)
-    {
-    }
+    public function __construct(private PaletteRepository $paletteRepository) {}
 
     public function all(string $sort = '')
     {
 
-        if ($sort == "likes") {
+        if ($sort == 'likes') {
             return $this->sortByLikes();
 
-        } elseif ($sort == "views") {
+        } elseif ($sort == 'views') {
             return $this->sortByViews();
 
-        } elseif ($sort == "saves") {
+        } elseif ($sort == 'saves') {
             return $this->sortByCollections();
 
         } else {
