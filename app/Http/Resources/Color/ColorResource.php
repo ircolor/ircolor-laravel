@@ -15,8 +15,8 @@ class ColorResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            "dark" => $this->resource->getData()['dark'],
-            "bright" => $this->resource->getData()['bright']
+            'dark' => $this->resource->getData()['dark'],
+            'bright' => $this->resource->getData()['bright'],
         ];
     }
 }

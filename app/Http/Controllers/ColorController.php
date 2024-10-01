@@ -6,14 +6,10 @@ use App\Http\Requests\Api\Colors\ShowColorRequest;
 use App\Http\Resources\Color\ColorResource;
 use App\Services\ApiResponse\ApiResponseFacade;
 use App\Services\Colors\ColorService;
-use Illuminate\Http\Request;
 
 class ColorController extends Controller
 {
-
-    public function __construct(private ColorService $colorService)
-    {
-    }
+    public function __construct(private ColorService $colorService) {}
 
     public function show(ShowColorRequest $request, string $hex)
     {
