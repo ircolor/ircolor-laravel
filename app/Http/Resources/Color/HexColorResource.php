@@ -16,8 +16,8 @@ class HexColorResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            "dark" => ColorResource::collection($this->resource['dark']),
-            "bright" => ColorResource::collection($this->resource['bright'])
+            'dark' => ColorResource::collection($this->resource['dark']),
+            'bright' => ColorResource::collection($this->resource['bright']),
 
         ];
     }
