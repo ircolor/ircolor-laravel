@@ -14,7 +14,7 @@ class AuthController extends Controller
     public function __construct(private AuthService $authService) {}
 
     /**
-     * Get list of all palettes
+     * Register user
      *
      * @unauthenticated
      */
@@ -37,7 +37,7 @@ class AuthController extends Controller
     }
 
     /**
-     * Get list of all palettes
+     * Login user
      *
      * @unauthenticated
      */
