@@ -14,18 +14,25 @@ class PaletteService
 
     public function all(string $sort = '')
     {
+        switch ($sort) {
+            case "likes":
+                return $this->sortByLikes();
+                break;
 
-        if ($sort == "likes") {
-            return $this->sortByLikes();
+            case "views":
+                return $this->sortByViews();
+                break;
 
-        } elseif ($sort == "views") {
-            return $this->sortByViews();
+            case "saves":
+                return $this->sortByCollections();
+                break;
 
-        } elseif ($sort == "saves") {
-            return $this->sortByCollections();
+            case "popular":
+                return $this->sortByMostPopular();
+                break;
 
-        } else {
-            return Palette::with('user')->paginate();
+            default:
+                return Palette::with('user')->paginate();
         }
     }
 
@@ -42,5 +49,10 @@ class PaletteService
     private function sortByCollections()
     {
         return $this->paletteRepository->sortByCollections();
+    }
+
+    private function sortByMostPopular()
+    {
+        return $this->paletteRepository->sortByMostPopular();
     }
 }
