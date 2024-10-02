@@ -7,10 +7,7 @@ use App\Repositories\Palette\PaletteRepository;
 
 class PaletteService
 {
-
-    public function __construct(private PaletteRepository $paletteRepository)
-    {
-    }
+    public function __construct(private PaletteRepository $paletteRepository) {}
 
     public function all(string $sort = '')
     {

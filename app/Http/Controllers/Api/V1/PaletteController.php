@@ -24,6 +24,7 @@ class PaletteController extends Controller
     public function index(Request $request)
     {
         $palettes = $this->paletteService->all($request->input('sort') ?? '');
+
         return PaletteResource::collection($palettes);
     }
 
