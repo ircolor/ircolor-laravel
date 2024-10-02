@@ -17,7 +17,9 @@ class Palette extends Model implements Viewable
     use Collectionable, HasFactory, InteractsWithViews, Likeable;
 
     const COLLECTION_COEFFICIENT = 0.5;
+
     const LIKE_COEFFICIENT = 0.3;
+
     const VIEW_COEFFICIENT = 0.2;
 
     protected $fillable = ['colors', 'user_id'];

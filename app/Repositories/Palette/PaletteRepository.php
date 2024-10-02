@@ -59,6 +59,7 @@ class PaletteRepository
                 $palette->score = (Palette::COLLECTION_COEFFICIENT * $palette->collections_count) +
                     (Palette::LIKE_COEFFICIENT * $palette->likes_count) +
                     (Palette::VIEW_COEFFICIENT * $palette->views_count);
+
                 return $palette;
             })
             ->sortByDesc('score');

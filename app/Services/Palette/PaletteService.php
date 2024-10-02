@@ -12,19 +12,19 @@ class PaletteService
     public function all(string $sort = '')
     {
         switch ($sort) {
-            case "likes":
+            case 'likes':
                 return $this->sortByLikes();
                 break;
 
-            case "views":
+            case 'views':
                 return $this->sortByViews();
                 break;
 
-            case "saves":
+            case 'saves':
                 return $this->sortByCollections();
                 break;
 
-            case "popular":
+            case 'popular':
                 return $this->sortByMostPopular();
                 break;
 
