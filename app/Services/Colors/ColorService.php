@@ -13,6 +13,7 @@ class ColorService
         $colors = [
             'dark' => $this->darkColors($hex, $times),
             'bright' => $this->brightColors($hex, $times),
+            'complementary' => $this->complementaryColor($hex, $times)
         ];
 
         return $this->authResultBuilder->setSuccess(true)->setData($colors)->build();
@@ -60,5 +61,22 @@ class ColorService
         }
 
         return $colors;
+    }
+
+    private function complementaryColor($hex, $times)
+    {
+        $hex = str_replace('#', '', $hex);
+
+        $r = hexdec(substr($hex, 0, 2));
+        $g = hexdec(substr($hex, 2, 2));
+        $b = hexdec(substr($hex, 4, 2));
+
+        $complementaryR = 255 - $r;
+        $complementaryG = 255 - $g;
+        $complementaryB = 255 - $b;
+
+        $complementaryColor = sprintf('#%02X%02X%02X', $complementaryR, $complementaryG, $complementaryB);
+
+        return $this->brightColors($complementaryColor, $times);
     }
 }
