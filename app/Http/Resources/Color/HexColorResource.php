@@ -18,7 +18,9 @@ class HexColorResource extends JsonResource
         return [
             "dark" => ColorResource::collection($this->resource['dark']),
             "bright" => ColorResource::collection($this->resource['bright']),
-            "complementary" => ColorResource::collection($this->resource['complementary'])
+            "complementary" => ColorResource::collection($this->resource['complementary']),
+            "color" => $this->resource['color'],
+            "is_dark" => $this->resource['is_dark']
         ];
     }
 }

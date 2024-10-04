@@ -13,7 +13,9 @@ class ColorService
         $colors = [
             'dark' => $this->darkColors($hex, $times),
             'bright' => $this->brightColors($hex, $times),
-            'complementary' => $this->complementaryColor($hex, $times)
+            'complementary' => $this->complementaryColor($hex, $times),
+            'color' => $hex,
+            'is_dark' => $this->isLightOrDark($hex),
         ];
 
         return $this->authResultBuilder->setSuccess(true)->setData($colors)->build();
@@ -78,5 +80,16 @@ class ColorService
         $complementaryColor = sprintf('#%02X%02X%02X', $complementaryR, $complementaryG, $complementaryB);
 
         return $this->brightColors($complementaryColor, $times);
+    }
+
+    private function isLightOrDark($hex)
+    {
+        $hex = str_replace('#', '', $hex);
+
+        $r = hexdec(substr($hex, 0, 2));
+        $g = hexdec(substr($hex, 2, 2));
+        $b = hexdec(substr($hex, 4, 2));
+
+        return (0.299 * $r + 0.587 * $g + 0.114 * $b > 128) ? false : true; // true = dark | false = bright
     }
 }
