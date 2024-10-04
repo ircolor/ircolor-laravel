@@ -17,7 +17,7 @@ class ColorService
             'color' => $hex,
             'is_dark' => $this->isLightOrDark($hex),
             'rgb' => $this->hexToRgb($hex),
-            'rgba' => $this->hexToRgba($hex)
+            'rgba' => $this->hexToRgba($hex),
         ];
 
         return $this->authResultBuilder->setSuccess(true)->setData($colors)->build();
@@ -27,7 +27,7 @@ class ColorService
     {
         $hex = str_replace('#', '', $hex);
 
-        list($r, $g, $b) = $this->hexToDecimal($hex);
+        [$r, $g, $b] = $this->hexToDecimal($hex);
 
         $colors = [];
 
@@ -47,7 +47,7 @@ class ColorService
     {
         $hex = str_replace('#', '', $hex);
 
-        list($r, $g, $b) = $this->hexToDecimal($hex);
+        [$r, $g, $b] = $this->hexToDecimal($hex);
 
         $colors = [];
 
@@ -67,7 +67,7 @@ class ColorService
     {
         $hex = str_replace('#', '', $hex);
 
-        list($r, $g, $b) = $this->hexToDecimal($hex);
+        [$r, $g, $b] = $this->hexToDecimal($hex);
 
         $complementaryR = 255 - $r;
         $complementaryG = 255 - $g;
@@ -82,7 +82,7 @@ class ColorService
     {
         $hex = str_replace('#', '', $hex);
 
-        list($r, $g, $b) = $this->hexToDecimal($hex);
+        [$r, $g, $b] = $this->hexToDecimal($hex);
 
         return (0.299 * $r + 0.587 * $g + 0.114 * $b > 128) ? false : true; // true = dark | false = bright
     }
@@ -92,7 +92,7 @@ class ColorService
 
         $hex = str_replace('#', '', $hex);
 
-        list($r, $g, $b) = $this->hexToDecimal($hex);
+        [$r, $g, $b] = $this->hexToDecimal($hex);
 
         return "rgb($r, $g, $b)";
     }
@@ -102,7 +102,7 @@ class ColorService
 
         $hex = str_replace('#', '', $hex);
 
-        list($r, $g, $b) = $this->hexToDecimal($hex);
+        [$r, $g, $b] = $this->hexToDecimal($hex);
 
         return "rgba($r, $g, $b, $alpha)";
     }
