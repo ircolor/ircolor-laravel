@@ -16,6 +16,8 @@ class ColorService
             'complementary' => $this->complementaryColor($hex, $times),
             'color' => $hex,
             'is_dark' => $this->isLightOrDark($hex),
+            'rgb' => $this->hexToRgb($hex),
+            'rgba' => $this->hexToRgba($hex)
         ];
 
         return $this->authResultBuilder->setSuccess(true)->setData($colors)->build();
@@ -91,5 +93,29 @@ class ColorService
         $b = hexdec(substr($hex, 4, 2));
 
         return (0.299 * $r + 0.587 * $g + 0.114 * $b > 128) ? false : true; // true = dark | false = bright
+    }
+
+    private function hexToRgb($hex)
+    {
+
+        $hex = str_replace('#', '', $hex);
+
+        $r = hexdec(substr($hex, 0, 2));
+        $g = hexdec(substr($hex, 2, 2));
+        $b = hexdec(substr($hex, 4, 2));
+
+        return "rgb($r, $g, $b)";
+    }
+
+    private function hexToRgba($hex, $alpha = 1.0)
+    {
+
+        $hex = str_replace('#', '', $hex);
+
+        $r = hexdec(substr($hex, 0, 2));
+        $g = hexdec(substr($hex, 2, 2));
+        $b = hexdec(substr($hex, 4, 2));
+
+        return "rgba($r, $g, $b, $alpha)";
     }
 }
