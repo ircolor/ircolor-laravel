@@ -11,26 +11,14 @@ class PaletteService
 
     public function all(string $sort = '')
     {
-        switch ($sort) {
-            case 'likes':
-                return $this->sortByLikes();
-                break;
-
-            case 'views':
-                return $this->sortByViews();
-                break;
-
-            case 'saves':
-                return $this->sortByCollections();
-                break;
-
-            case 'popular':
-                return $this->sortByMostPopular();
-                break;
-
-            default:
-                return Palette::with('user')->paginate();
-        }
+        $result = match ($sort) {
+            'likes' => $this->sortByLikes(),
+            'views' => $this->sortByViews(),
+            'saves' => $this->sortByCollections(),
+            'popular' => $this->sortByMostPopular(),
+            default => Palette::with('user')->paginate(),
+        };
+        return $result;
     }
 
     private function sortByLikes()
