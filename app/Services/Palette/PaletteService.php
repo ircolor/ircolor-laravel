@@ -18,6 +18,7 @@ class PaletteService
             'popular' => $this->sortByMostPopular(),
             default => Palette::with('user')->paginate(),
         };
+
         return $result;
     }
 
