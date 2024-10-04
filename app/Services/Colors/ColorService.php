@@ -27,9 +27,7 @@ class ColorService
     {
         $hex = str_replace('#', '', $hex);
 
-        $r = hexdec(substr($hex, 0, 2));
-        $g = hexdec(substr($hex, 2, 2));
-        $b = hexdec(substr($hex, 4, 2));
+        list($r, $g, $b) = $this->hexToDecimal($hex);
 
         $colors = [];
 
@@ -49,9 +47,7 @@ class ColorService
     {
         $hex = str_replace('#', '', $hex);
 
-        $r = hexdec(substr($hex, 0, 2));
-        $g = hexdec(substr($hex, 2, 2));
-        $b = hexdec(substr($hex, 4, 2));
+        list($r, $g, $b) = $this->hexToDecimal($hex);
 
         $colors = [];
 
@@ -71,9 +67,7 @@ class ColorService
     {
         $hex = str_replace('#', '', $hex);
 
-        $r = hexdec(substr($hex, 0, 2));
-        $g = hexdec(substr($hex, 2, 2));
-        $b = hexdec(substr($hex, 4, 2));
+        list($r, $g, $b) = $this->hexToDecimal($hex);
 
         $complementaryR = 255 - $r;
         $complementaryG = 255 - $g;
@@ -88,9 +82,7 @@ class ColorService
     {
         $hex = str_replace('#', '', $hex);
 
-        $r = hexdec(substr($hex, 0, 2));
-        $g = hexdec(substr($hex, 2, 2));
-        $b = hexdec(substr($hex, 4, 2));
+        list($r, $g, $b) = $this->hexToDecimal($hex);
 
         return (0.299 * $r + 0.587 * $g + 0.114 * $b > 128) ? false : true; // true = dark | false = bright
     }
@@ -100,9 +92,7 @@ class ColorService
 
         $hex = str_replace('#', '', $hex);
 
-        $r = hexdec(substr($hex, 0, 2));
-        $g = hexdec(substr($hex, 2, 2));
-        $b = hexdec(substr($hex, 4, 2));
+        list($r, $g, $b) = $this->hexToDecimal($hex);
 
         return "rgb($r, $g, $b)";
     }
@@ -112,10 +102,18 @@ class ColorService
 
         $hex = str_replace('#', '', $hex);
 
+        list($r, $g, $b) = $this->hexToDecimal($hex);
+
+        return "rgba($r, $g, $b, $alpha)";
+    }
+
+    private function hexToDecimal($hex)
+    {
+
         $r = hexdec(substr($hex, 0, 2));
         $g = hexdec(substr($hex, 2, 2));
         $b = hexdec(substr($hex, 4, 2));
 
-        return "rgba($r, $g, $b, $alpha)";
+        return [$r, $g, $b];
     }
 }
