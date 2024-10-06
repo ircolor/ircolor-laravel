@@ -36,4 +36,32 @@ class PaletteRepository
     {
         return Palette::find($id);
     }
+
+    public function sortByLikes()
+    {
+        return Palette::with('user')->orderByLikes('desc')->paginate();
+    }
+
+    public function sortByViews()
+    {
+        return Palette::with('user')->orderByViews('desc')->paginate();
+    }
+
+    public function sortByCollections()
+    {
+        return Palette::with('user')->orderByCollections('desc')->paginate();
+    }
+
+    public function sortByMostPopular()
+    {
+        return Palette::withCount(['collections', 'likes', 'views'])->get()
+            ->map(function ($palette) {
+                $palette->score = (Palette::COLLECTION_COEFFICIENT * $palette->collections_count) +
+                    (Palette::LIKE_COEFFICIENT * $palette->likes_count) +
+                    (Palette::VIEW_COEFFICIENT * $palette->views_count);
+
+                return $palette;
+            })
+            ->sortByDesc('score');
+    }
 }

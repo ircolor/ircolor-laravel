@@ -20,4 +20,9 @@ trait Collectionable
     {
         $this->collections()->detach($collection->id);
     }
+
+    public function collectionsCount()
+    {
+        return $this->collections()->count();
+    }
 }
